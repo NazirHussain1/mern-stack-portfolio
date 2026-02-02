@@ -1,23 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send, Mail, MapPin, Phone, MessageCircle, CheckCircle } from 'lucide-react';
-import emailjs from '@emailjs/browser';
+import { useForm, ValidationError } from '@formspree/react';
 import { EMAIL, PHONE, LOCATION } from '../constants.js';
 
 const Contact = () => {
   const whatsappUrl = `https://wa.me/${PHONE.replace(/\+/g, '')}`;
+  const [state, handleSubmit] = useForm("YOUR_FORM_ID"); // Replace with your Formspree form ID
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  // Initialize EmailJS
-  useEffect(() => {
-    emailjs.init('mlHH4nH8xbBhqOlV5'); // Initialize with your public key
-  }, []);
 
   const handleInputChange = (e) => {
     setFormData({
@@ -26,62 +20,11 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    
-    try {
-      // EmailJS configuration
-      const serviceID = 'service_logq1j1'; // Your correct Service ID
-      const templateID = 'template_3p8kkab'; // Your Template ID  
-      const publicKey = 'mlHH4nH8xbBhqOlV5'; // Your Public Key
-      
-      console.log('Sending email with:', { serviceID, templateID, publicKey });
-      
-      const templateParams = {
-        name: formData.name,
-        email: formData.email,
-        message: formData.message,
-        time: new Date().toLocaleString(), // Add current date and time
-        from_name: formData.name,
-        from_email: formData.email,
-        user_name: formData.name,
-        user_email: formData.email,
-        reply_to: formData.email,
-        to_email: EMAIL, // Your professional email (nh534392@gmail.com)
-        subject: `New Portfolio Message from ${formData.name}`
-      };
-      
-      console.log('Template params:', templateParams);
-      
-      const result = await emailjs.send(serviceID, templateID, templateParams, publicKey);
-      console.log('Email sent successfully:', result);
-      
-      // Show success message
-      setIsSubmitting(false);
-      setIsSubmitted(true);
+    await handleSubmit(e);
+    if (state.succeeded) {
       setFormData({ name: '', email: '', message: '' });
-      
-      // Reset success message after 5 seconds
-      setTimeout(() => {
-        setIsSubmitted(false);
-      }, 5000);
-      
-    } catch (error) {
-      console.error('Email sending failed:', error);
-      setIsSubmitting(false);
-      
-      // More detailed error message
-      let errorMessage = 'Failed to send message. ';
-      if (error.text) {
-        errorMessage += `Error: ${error.text}`;
-      } else if (error.message) {
-        errorMessage += `Error: ${error.message}`;
-      } else {
-        errorMessage += 'Please check your internet connection and try again.';
-      }
-      
-      alert(errorMessage + '\n\nYou can also contact directly via email: ' + EMAIL);
     }
   };
 
@@ -130,9 +73,9 @@ const Contact = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               className="glass p-10 rounded-3xl border border-slate-200 dark:border-slate-800 h-full shadow-2xl"
-              onSubmit={handleSubmit}
+              onSubmit={onSubmit}
             >
-              {isSubmitted && (
+              {state.succeeded && (
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -158,6 +101,7 @@ const Contact = () => {
                       className="w-full bg-slate-100 dark:bg-slate-800 border border-transparent p-4 rounded-xl focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-slate-900 outline-none transition-all" 
                       placeholder="Enter your name" 
                     />
+                    <ValidationError prefix="Name" field="name" errors={state.errors} />
                   </div>
                 </div>
                 <div className="col-md-6">
@@ -172,6 +116,7 @@ const Contact = () => {
                       className="w-full bg-slate-100 dark:bg-slate-800 border border-transparent p-4 rounded-xl focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-slate-900 outline-none transition-all" 
                       placeholder="your@email.com" 
                     />
+                    <ValidationError prefix="Email" field="email" errors={state.errors} />
                   </div>
                 </div>
                 <div className="col-12">
@@ -186,19 +131,20 @@ const Contact = () => {
                       className="w-full bg-slate-100 dark:bg-slate-800 border border-transparent p-4 rounded-xl focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-slate-900 outline-none transition-all resize-none" 
                       placeholder="Tell me about your project..."
                     ></textarea>
+                    <ValidationError prefix="Message" field="message" errors={state.errors} />
                   </div>
                 </div>
               </div>
               <button 
                 type="submit"
-                disabled={isSubmitting}
+                disabled={state.submitting}
                 className={`w-full py-4 rounded-2xl font-bold flex items-center justify-center gap-3 shadow-lg transition-all text-lg group ${
-                  isSubmitting 
+                  state.submitting 
                     ? 'bg-slate-400 cursor-not-allowed' 
                     : 'bg-primary hover:bg-blue-600 shadow-primary/30'
                 } text-white`}
               >
-                {isSubmitting ? (
+                {state.submitting ? (
                   <>
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
                     Sending Message...

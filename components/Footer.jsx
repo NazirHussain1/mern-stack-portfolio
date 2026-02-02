@@ -1,5 +1,5 @@
 import React from 'react';
-import { Linkedin, Github, Twitter, Heart } from 'lucide-react';
+import { Linkedin, Github, Facebook, Heart } from 'lucide-react';
 import { NAME, LINKEDIN, GITHUB } from '../constants.js';
 
 const Footer = () => {
@@ -19,8 +19,8 @@ const Footer = () => {
             <a href={`https://${GITHUB}`} target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl glass hover:text-primary transition-colors text-slate-600 dark:text-slate-400">
               <Github size={20} />
             </a>
-            <a href="#" className="p-3 rounded-xl glass hover:text-primary transition-colors text-slate-600 dark:text-slate-400">
-              <Twitter size={20} />
+            <a href="https://www.facebook.com/nazir.hussain.371869/" target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl glass hover:text-primary transition-colors text-slate-600 dark:text-slate-400">
+              <Facebook size={20} />
             </a>
           </div>
         </div>

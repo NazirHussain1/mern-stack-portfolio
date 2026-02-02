@@ -40,7 +40,7 @@ const Hero = () => {
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       <Canvas3D />
       
-      <div className="container relative z-10 mx-auto px-4 text-center">
+      <div className="container relative z-20 mx-auto px-4 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -50,7 +50,7 @@ const Hero = () => {
             Available for MERN Stack Development & Web Services
           </span>
           <h1 className="text-5xl md:text-8xl font-display font-extrabold mb-6 tracking-tight">
-            I am <span className="text-gradient">{NAME}</span>
+           <span className="text-gradient">{NAME}</span>
           </h1>
           <div className="h-12 md:h-16 mb-8">
             <p className="text-2xl md:text-4xl text-slate-500 dark:text-slate-400 font-light">
@@ -80,12 +80,12 @@ const Hero = () => {
             </motion.a>
             
             {/* CV Dropdown Button */}
-            <div className="relative z-50">
+            <div className="relative">
               <motion.button
                 onClick={() => setShowCVDropdown(!showCVDropdown)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 border-2 border-slate-200 dark:border-slate-800 rounded-full font-bold flex items-center gap-2 hover:bg-slate-100 dark:hover:bg-slate-900 transition-all text-slate-900 dark:text-white relative z-50"
+                className="px-8 py-4 border-2 border-slate-200 dark:border-slate-800 rounded-full font-bold flex items-center gap-2 hover:bg-slate-100 dark:hover:bg-slate-900 transition-all text-slate-900 dark:text-white"
               >
                 <Download size={20} />
                 Resume/CV
@@ -95,45 +95,44 @@ const Hero = () => {
               {/* Dropdown Menu */}
               <AnimatePresence>
                 {showCVDropdown && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute top-full mt-3 left-1/2 transform -translate-x-1/2 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden z-[9999]"
-                    style={{ boxShadow: '0 10px 40px rgba(0,0,0,0.1)' }}
-                  >
-                    <a
-                      href="/Nazir-Resume.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-3 px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-slate-900 dark:text-white no-underline group"
+                  <>
+                    {/* Backdrop to close dropdown */}
+                    <div 
+                      className="fixed inset-0 z-[100]" 
                       onClick={() => setShowCVDropdown(false)}
+                    ></div>
+                    
+                    <motion.div
+                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute top-full mt-3 left-1/2 transform -translate-x-1/2 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden z-[101]"
                     >
-                      <Eye size={18} className="text-primary group-hover:scale-110 transition-transform" />
-                      <span className="font-medium">View CV</span>
-                    </a>
-                    <div className="h-px bg-slate-200 dark:bg-slate-700"></div>
-                    <a
-                      href="/Nazir-Resume.pdf"
-                      download="Nazir_Hussain_Resume.pdf"
-                      className="flex items-center gap-3 px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-slate-900 dark:text-white no-underline group"
-                      onClick={() => setShowCVDropdown(false)}
-                    >
-                      <Download size={18} className="text-green-500 group-hover:scale-110 transition-transform" />
-                      <span className="font-medium">Download CV</span>
-                    </a>
-                  </motion.div>
+                      <a
+                        href="/Nazir-Resume.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-3 px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-slate-900 dark:text-white no-underline group"
+                        onClick={() => setShowCVDropdown(false)}
+                      >
+                        <Eye size={18} className="text-primary group-hover:scale-110 transition-transform" />
+                        <span className="font-medium">View CV</span>
+                      </a>
+                      <div className="h-px bg-slate-200 dark:bg-slate-700"></div>
+                      <a
+                        href="/Nazir-Resume.pdf"
+                        download="Nazir_Hussain_Resume.pdf"
+                        className="flex items-center gap-3 px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-slate-900 dark:text-white no-underline group"
+                        onClick={() => setShowCVDropdown(false)}
+                      >
+                        <Download size={18} className="text-green-500 group-hover:scale-110 transition-transform" />
+                        <span className="font-medium">Download CV</span>
+                      </a>
+                    </motion.div>
+                  </>
                 )}
               </AnimatePresence>
-              
-              {/* Backdrop to close dropdown */}
-              {showCVDropdown && (
-                <div 
-                  className="fixed inset-0 z-[9998]" 
-                  onClick={() => setShowCVDropdown(false)}
-                ></div>
-              )}
             </div>
           </div>
         </motion.div>
