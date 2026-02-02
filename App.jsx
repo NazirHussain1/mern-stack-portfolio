@@ -7,6 +7,7 @@ import Skills from './components/Skills.jsx';
 import ExperienceTimeline from './components/Experience.jsx';
 import Projects from './components/Projects.jsx';
 import Education from './components/Education.jsx';
+import HireMe from './components/HireMe.jsx';
 import Contact from './components/Contact.jsx';
 import Footer from './components/Footer.jsx';
 
@@ -34,6 +35,7 @@ const App = () => {
         <ExperienceTimeline />
         <Projects />
         <Education />
+        <HireMe />
         <Contact />
       </main>
 
