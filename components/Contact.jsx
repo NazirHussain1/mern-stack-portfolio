@@ -9,6 +9,8 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    project: '',
+    customProject: '',
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -41,6 +43,7 @@ const Contact = () => {
       const templateParams = {
         name: formData.name,
         email: formData.email,
+        project: formData.project === 'Other' ? formData.customProject : formData.project,
         message: formData.message,
         time: new Date().toLocaleString(), // Add current date and time
         from_name: formData.name,
@@ -49,7 +52,7 @@ const Contact = () => {
         user_email: formData.email,
         reply_to: formData.email,
         to_email: EMAIL, // Your professional email (nh534392@gmail.com)
-        subject: `New Portfolio Message from ${formData.name}`
+        subject: `New Portfolio Message from ${formData.name} - ${formData.project === 'Other' ? formData.customProject : formData.project || 'General Inquiry'}`
       };
       
       console.log('Template params:', templateParams);
@@ -60,7 +63,7 @@ const Contact = () => {
       // Show success message
       setIsSubmitting(false);
       setIsSubmitted(true);
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', email: '', project: '', customProject: '', message: '' });
       
       // Reset success message after 5 seconds
       setTimeout(() => {
@@ -175,6 +178,50 @@ const Contact = () => {
                   </div>
                 </div>
                 <div className="col-12">
+                  <div className="form-group mb-4">
+                    <label className="text-sm font-bold uppercase text-slate-500 tracking-wider mb-2 block">Project Type <span className="text-slate-400">(Optional)</span></label>
+                    <select 
+                      name="project"
+                      value={formData.project}
+                      onChange={handleInputChange}
+                      className="w-full bg-slate-100 dark:bg-slate-800 border border-transparent p-4 rounded-xl focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-slate-900 outline-none transition-all"
+                    >
+                      <option value="">Select project type (optional)...</option>
+                      <option value="Full Stack Web Application">Full Stack Web Application</option>
+                      <option value="Frontend Development">Frontend Development</option>
+                      <option value="Backend API Development">Backend API Development</option>
+                      <option value="MERN Stack Project">MERN Stack Project</option>
+                      <option value="E-commerce Website">E-commerce Website</option>
+                      <option value="Business Website">Business Website</option>
+                      <option value="Portfolio Website">Portfolio Website</option>
+                      <option value="Mobile App (React Native)">Mobile App (React Native)</option>
+                      <option value="Database Design & Integration">Database Design & Integration</option>
+                      <option value="Website Maintenance">Website Maintenance</option>
+                      <option value="Job Opportunity">Job Opportunity</option>
+                      <option value="Consultation">Consultation</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+                
+                {/* Custom Project Input - Shows only when "Other" is selected */}
+                {formData.project === 'Other' && (
+                  <div className="col-12">
+                    <div className="form-group mb-4">
+                      <label className="text-sm font-bold uppercase text-slate-500 tracking-wider mb-2 block">Custom Project Type</label>
+                      <input 
+                        type="text" 
+                        name="customProject"
+                        value={formData.customProject}
+                        onChange={handleInputChange}
+                        className="w-full bg-slate-100 dark:bg-slate-800 border border-transparent p-4 rounded-xl focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-slate-900 outline-none transition-all" 
+                        placeholder="Enter your custom project type..." 
+                      />
+                    </div>
+                  </div>
+                )}
+                
+                <div className="col-12">
                   <div className="form-group mb-6">
                     <label className="text-sm font-bold uppercase text-slate-500 tracking-wider mb-2 block">Message</label>
                     <textarea 
@@ -184,7 +231,7 @@ const Contact = () => {
                       onChange={handleInputChange}
                       required
                       className="w-full bg-slate-100 dark:bg-slate-800 border border-transparent p-4 rounded-xl focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-slate-900 outline-none transition-all resize-none" 
-                      placeholder="Tell me about your project..."
+                      placeholder="Tell me about your project requirements, timeline, budget, and any specific details..."
                     ></textarea>
                   </div>
                 </div>
