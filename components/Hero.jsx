@@ -79,7 +79,7 @@ const Hero = () => {
               WhatsApp Me
             </motion.a>
             
-            {/* CV Dropdown Button */}
+           
             <div className="relative">
               <motion.button
                 onClick={() => setShowCVDropdown(!showCVDropdown)}
@@ -92,11 +92,11 @@ const Hero = () => {
                 <ChevronDown size={16} className={`transition-transform duration-300 ${showCVDropdown ? 'rotate-180' : ''}`} />
               </motion.button>
               
-              {/* Dropdown Menu */}
+         
               <AnimatePresence>
                 {showCVDropdown && (
                   <>
-                    {/* Backdrop to close dropdown */}
+                  
                     <div 
                       className="fixed inset-0 z-[100]" 
                       onClick={() => setShowCVDropdown(false)}
@@ -147,6 +147,7 @@ const Hero = () => {
           </a>
         </motion.div>
       </div>
+      
     </section>
   );
 };
