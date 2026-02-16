@@ -47,6 +47,33 @@ export const PROJECTS = [
     links: { github: "https://github.com/NazirHussain1", live: "https://blog-api-pagination-filtering.vercel.app/" }
   },
   {
+  title: "Aureva – E-Commerce Platform",
+  period: "2026",
+  tech: [
+    "React.js",
+    "Node.js",
+    "Express.js",
+    "PostgreSQL",
+    "Prisma ORM",
+    "Redux Toolkit",
+    "JWT",
+    "Stripe",
+    "Tailwind CSS"
+  ],
+  description: [
+    "Built a scalable full-stack e-commerce platform using PERN stack (PostgreSQL, Express, React, Node).",
+    "Designed relational database schema in PostgreSQL and integrated using Prisma ORM.",
+    "Implemented secure JWT-based authentication and role-based access control (Admin/User).",
+    "Developed product management, cart system, order processing, and payment integration.",
+    "Optimized backend queries and ensured secure API architecture."
+  ],
+  links: {
+    github: "https://github.com/NazirHussain1/aureva-ecommerce-platform",
+    live: "#"
+  }
+}
+,
+  {
     title: "Law Surface",
     period: "Sep 2025 – Nov 2025",
     tech: ["MongoDB", "Express.js", "React.js", "Node.js"],
