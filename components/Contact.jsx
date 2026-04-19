@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Phone, MessageCircle, CheckCircle, Send } from 'lucide-react';
+import { AlertTriangle, Mail, MapPin, Phone, MessageCircle, CheckCircle, Send } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import { ContactFormSkeleton } from './SkeletonLoader.jsx';
 import { EMAIL, PHONE, LOCATION } from '../constants.js';
@@ -16,10 +16,18 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const successTimeoutRef = useRef(null);
 
   // Initialize EmailJS
   useEffect(() => {
     emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
+
+    return () => {
+      if (successTimeoutRef.current) {
+        clearTimeout(successTimeoutRef.current);
+      }
+    };
   }, []);
 
   const handleInputChange = (e) => {
@@ -29,64 +37,94 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const getSelectedProject = () => {
+    if (formData.project === 'Other') {
+      return formData.customProject || 'Other';
+    }
+    return formData.project || 'General Inquiry';
+  };
+
+  const sendContactMessage = async () => {
     setIsSubmitting(true);
-    
+    setSubmitError('');
+    setIsSubmitted(false);
+
+    const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceID || !templateID || !publicKey) {
+      setSubmitError(
+        'Email service is not configured correctly. Please try again later, or reach out directly at ' + EMAIL + '.'
+      );
+      setIsSubmitting(false);
+      return;
+    }
+
+    const selectedProject = getSelectedProject();
+    const templateParams = {
+      name: formData.name,
+      email: formData.email,
+      project: selectedProject,
+      message: formData.message,
+      time: new Date().toLocaleString(),
+      from_name: formData.name,
+      from_email: formData.email,
+      user_name: formData.name,
+      user_email: formData.email,
+      reply_to: formData.email,
+      to_email: EMAIL,
+      subject: `New Portfolio Message from ${formData.name} - ${selectedProject}`
+    };
+
     try {
-      // EmailJS configuration
-      const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-      const templateID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-      
-      console.log('Sending email with:', { serviceID, templateID, publicKey });
-      
-      const templateParams = {
-        name: formData.name,
-        email: formData.email,
-        project: formData.project === 'Other' ? formData.customProject : formData.project,
-        message: formData.message,
-        time: new Date().toLocaleString(), // Add current date and time
-        from_name: formData.name,
-        from_email: formData.email,
-        user_name: formData.name,
-        user_email: formData.email,
-        reply_to: formData.email,
-        to_email: EMAIL, // Your professional email (nh534392@gmail.com)
-        subject: `New Portfolio Message from ${formData.name} - ${formData.project === 'Other' ? formData.customProject : formData.project || 'General Inquiry'}`
-      };
-      
-      console.log('Template params:', templateParams);
-      
       const result = await emailjs.send(serviceID, templateID, templateParams, publicKey);
       console.log('Email sent successfully:', result);
-      
-      // Show success message
-      setIsSubmitting(false);
+
       setIsSubmitted(true);
       setFormData({ name: '', email: '', project: '', customProject: '', message: '' });
-      
-      // Reset success message after 5 seconds
-      setTimeout(() => {
+
+      if (successTimeoutRef.current) {
+        clearTimeout(successTimeoutRef.current);
+      }
+      successTimeoutRef.current = window.setTimeout(() => {
         setIsSubmitted(false);
+        successTimeoutRef.current = null;
       }, 5000);
-      
     } catch (error) {
       console.error('Email sending failed:', error);
-      setIsSubmitting(false);
-      
-      // More detailed error message
-      let errorMessage = 'Failed to send message. ';
-      if (error.text) {
-        errorMessage += `Error: ${error.text}`;
-      } else if (error.message) {
-        errorMessage += `Error: ${error.message}`;
-      } else {
-        errorMessage += 'Please check your internet connection and try again.';
+
+      const isNetworkError =
+        !navigator.onLine ||
+        error?.status === 0 ||
+        (typeof error?.message === 'string' && error.message.toLowerCase().includes('network')) ||
+        (typeof error?.text === 'string' && error.text.toLowerCase().includes('network'));
+
+      let message = isNetworkError
+        ? 'Unable to send your message because your network appears to be offline. Check your connection and retry.'
+        : 'Something went wrong while sending your message. Please try again.';
+
+      if (!isNetworkError) {
+        const detail = error?.text || error?.message || '';
+        if (detail) {
+          message = `${message} ${detail}`.trim();
+        }
       }
-      
-      alert(errorMessage + '\n\nYou can also contact directly via email: ' + EMAIL);
+
+      setSubmitError(`${message} If this keeps happening, contact me directly at ${EMAIL}.`);
+    } finally {
+      setIsSubmitting(false);
     }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await sendContactMessage();
+  };
+
+  const handleRetry = async () => {
+    if (isSubmitting) return;
+    await sendContactMessage();
   };
 
   return (
@@ -137,8 +175,36 @@ const Contact = () => {
               onSubmit={handleSubmit}
             >
               {isSubmitting && <ContactFormSkeleton />}
+              {submitError && (
+                <motion.div
+                  role="alert"
+                  aria-live="assertive"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-6 p-4 bg-rose-100 dark:bg-rose-900/30 border border-rose-300 dark:border-rose-700 rounded-xl"
+                >
+                  <div className="flex items-start gap-3">
+                    <AlertTriangle size={20} className="text-red-600 mt-1" />
+                    <div>
+                      <p className="text-sm font-bold text-rose-700 dark:text-rose-200 mb-2">Could not send your message</p>
+                      <p className="text-sm text-rose-700 dark:text-rose-200 leading-6">{submitError}</p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    aria-label="Retry sending message"
+                    disabled={isSubmitting}
+                    onClick={handleRetry}
+                    className="mt-4 inline-flex items-center justify-center rounded-full bg-red-600 text-white px-4 py-2 text-sm font-semibold hover:bg-red-700 transition disabled:opacity-70 disabled:cursor-not-allowed"
+                  >
+                    Retry
+                  </button>
+                </motion.div>
+              )}
               {isSubmitted && (
                 <motion.div
+                  role="status"
+                  aria-live="polite"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="mb-6 p-4 bg-green-100 dark:bg-green-900/30 border border-green-300 dark:border-green-700 rounded-xl flex items-center gap-3"
@@ -240,6 +306,7 @@ const Contact = () => {
               </fieldset>
               <button 
                 type="submit"
+                aria-label="Send contact message"
                 disabled={isSubmitting}
                 className={`w-full py-4 rounded-2xl font-bold flex items-center justify-center gap-3 shadow-lg transition-all text-lg group ${
                   isSubmitting 

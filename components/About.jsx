@@ -15,12 +15,15 @@ const About = () => {
               viewport={{ once: true }}
               className="relative aspect-square rounded-3xl overflow-hidden glass shadow-2xl"
             >
-              <img 
-                src="https://picsum.photos/800/800?grayscale" 
-                alt="Nazir Hussain" 
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-primary/20 mix-blend-overlay"></div>
+              <figure className="relative w-full h-full">
+                <img 
+                  src="https://picsum.photos/800/800?grayscale" 
+                  alt="Portrait of Nazir Hussain"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-primary/20 mix-blend-overlay"></div>
+                <figcaption className="sr-only">Portrait of Nazir Hussain</figcaption>
+              </figure>
             </motion.div>
           </div>
           

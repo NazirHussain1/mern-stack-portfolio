@@ -23,9 +23,11 @@ const Navbar = ({ darkMode, toggleTheme }) => {
   ];
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'py-4 glass shadow-lg' : 'py-6 bg-transparent'}`}>
+    <nav aria-label="Primary navigation" className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'py-4 glass shadow-lg' : 'py-6 bg-transparent'}`}>
       <div className="container mx-auto px-4 md:px-8 flex justify-between items-center">
-        <motion.div 
+        <motion.a 
+          href="#home"
+          aria-label="Go to home section"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           className="flex items-center cursor-pointer group"
@@ -85,7 +87,7 @@ const Navbar = ({ darkMode, toggleTheme }) => {
               NAZIR.
             </motion.div>
           </div>
-        </motion.div>
+        </motion.a>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center space-x-8">
@@ -99,23 +101,33 @@ const Navbar = ({ darkMode, toggleTheme }) => {
             </a>
           ))}
           <button 
+            type="button"
             onClick={toggleTheme}
+            aria-label={darkMode ? 'Switch to light theme' : 'Switch to dark theme'}
             className="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors"
           >
-            {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+            {darkMode ? <Sun size={20} aria-hidden="true" /> : <Moon size={20} aria-hidden="true" />}
           </button>
         </div>
 
         {/* Mobile Toggle */}
         <div className="md:hidden flex items-center space-x-4">
           <button 
+            type="button"
             onClick={toggleTheme}
+            aria-label={darkMode ? 'Switch to light theme' : 'Switch to dark theme'}
             className="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors"
           >
-            {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+            {darkMode ? <Sun size={20} aria-hidden="true" /> : <Moon size={20} aria-hidden="true" />}
           </button>
-          <button onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <X /> : <Menu />}
+          <button
+            type="button"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? 'Close mobile navigation menu' : 'Open mobile navigation menu'}
+            aria-expanded={isOpen}
+            className="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors"
+          >
+            {isOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
           </button>
         </div>
       </div>

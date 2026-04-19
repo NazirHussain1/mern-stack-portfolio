@@ -37,12 +37,13 @@ const Projects = () => {
               viewport={{ once: true }}
               className="group relative glass rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 flex flex-col h-full"
             >
-              <div className="relative overflow-hidden aspect-video bg-slate-200 dark:bg-slate-800">
+              <figure className="relative overflow-hidden aspect-video bg-slate-200 dark:bg-slate-800">
                 <img 
                   src={`https://picsum.photos/seed/${project.title}/800/450`} 
-                  alt={project.title} 
+                  alt={`Screenshot of ${project.title}`} 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-70"
                 />
+                <figcaption className="sr-only">Screenshot of {project.title}</figcaption>
                 <div className="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-60"></div>
                 <div className="absolute bottom-6 left-6 right-6">
                   <div className="flex flex-wrap gap-2 mb-3">
@@ -69,11 +70,11 @@ const Projects = () => {
                 </div>
 
                 <div className="flex gap-4">
-                  <a href={project.links?.github} className="flex-1 py-3 px-6 bg-slate-900 text-white dark:bg-white dark:text-slate-900 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity no-underline">
-                    <Github size={18} /> Code
+                  <a href={project.links?.github} target="_blank" rel="noreferrer" className="flex-1 py-3 px-6 bg-slate-900 text-white dark:bg-white dark:text-slate-900 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity no-underline">
+                    <Github size={18} aria-hidden="true" /> Code
                   </a>
-                  <a href={project.links?.live} className="flex-1 py-3 px-6 bg-primary text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-primary/20 hover:opacity-90 transition-opacity no-underline">
-                    <ExternalLink size={18} /> Demo
+                  <a href={project.links?.live} target="_blank" rel="noreferrer" className="flex-1 py-3 px-6 bg-primary text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-primary/20 hover:opacity-90 transition-opacity no-underline">
+                    <ExternalLink size={18} aria-hidden="true" /> Demo
                   </a>
                 </div>
               </div>
