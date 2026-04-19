@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Download, Mail, ArrowDown, MessageCircle, Eye, ChevronDown } from 'lucide-react';
 import Canvas3D from './Canvas3D.jsx';
+import { HeroCanvasSkeleton } from './SkeletonLoader.jsx';
 import { NAME, PHONE } from '../constants.js';
 
 const typedWords = ["MERN Stack Developer", "MongoDB Expert", "Next.js Specialist", "Full Stack Engineer"];
@@ -11,6 +12,8 @@ const Hero = () => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
   const [showCVDropdown, setShowCVDropdown] = useState(false);
+  const [resumeExists, setResumeExists] = useState(false);
+  const [canvasLoaded, setCanvasLoaded] = useState(false);
 
   const typingSpeed = isDeleting ? 80 : 150;
 
@@ -48,11 +51,30 @@ const Hero = () => {
     };
   }, [text, isDeleting, loopNum]);
 
+  useEffect(() => {
+    let active = true;
+
+    fetch('/Nazir-Resume.pdf', { method: 'HEAD' })
+      .then((response) => {
+        if (!active) return;
+        setResumeExists(response.ok);
+      })
+      .catch(() => {
+        if (!active) return;
+        setResumeExists(false);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
   const whatsappUrl = `https://wa.me/${PHONE.replace(/\+/g, '')}`;
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      <Canvas3D />
+      {!canvasLoaded && <HeroCanvasSkeleton />}
+      <Canvas3D onCreated={() => setCanvasLoaded(true)} />
       
       <div className="container relative z-20 mx-auto px-4 text-center">
         <motion.div
@@ -95,58 +117,64 @@ const Hero = () => {
             
            
             <div className="relative">
-              <motion.button
-                onClick={() => setShowCVDropdown(!showCVDropdown)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 border-2 border-slate-200 dark:border-slate-800 rounded-full font-bold flex items-center gap-2 hover:bg-slate-100 dark:hover:bg-slate-900 transition-all text-slate-900 dark:text-white"
-              >
-                <Download size={20} />
-                Resume/CV
-                <ChevronDown size={16} className={`transition-transform duration-300 ${showCVDropdown ? 'rotate-180' : ''}`} />
-              </motion.button>
-              
-         
-              <AnimatePresence>
-                {showCVDropdown && (
-                  <>
-                  
-                    <div 
-                      className="fixed inset-0 z-[100]" 
-                      onClick={() => setShowCVDropdown(false)}
-                    ></div>
-                    
-                    <motion.div
-                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute top-full mt-3 left-1/2 transform -translate-x-1/2 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden z-[101]"
-                    >
-                      <a
-                        href="/Nazir-Resume.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-3 px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-slate-900 dark:text-white no-underline group"
+              {resumeExists ? (
+              <div className="relative">
+                <motion.button
+                  onClick={() => setShowCVDropdown(!showCVDropdown)}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-8 py-4 border-2 border-slate-200 dark:border-slate-800 rounded-full font-bold flex items-center gap-2 hover:bg-slate-100 dark:hover:bg-slate-900 transition-all text-slate-900 dark:text-white"
+                >
+                  <Download size={20} />
+                  Resume/CV
+                  <ChevronDown size={16} className={`transition-transform duration-300 ${showCVDropdown ? 'rotate-180' : ''}`} />
+                </motion.button>
+
+                <AnimatePresence>
+                  {showCVDropdown && (
+                    <>
+                      <div
+                        className="fixed inset-0 z-[100]"
                         onClick={() => setShowCVDropdown(false)}
+                      ></div>
+
+                      <motion.div
+                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute top-full mt-3 left-1/2 transform -translate-x-1/2 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden z-[101]"
                       >
-                        <Eye size={18} className="text-primary group-hover:scale-110 transition-transform" />
-                        <span className="font-medium">View CV</span>
-                      </a>
-                      <div className="h-px bg-slate-200 dark:bg-slate-700"></div>
-                      <a
-                        href="/Nazir-Resume.pdf"
-                        download="Nazir_Hussain_Resume.pdf"
-                        className="flex items-center gap-3 px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-slate-900 dark:text-white no-underline group"
-                        onClick={() => setShowCVDropdown(false)}
-                      >
-                        <Download size={18} className="text-green-500 group-hover:scale-110 transition-transform" />
-                        <span className="font-medium">Download CV</span>
-                      </a>
-                    </motion.div>
-                  </>
-                )}
-              </AnimatePresence>
+                        <a
+                          href="/Nazir-Resume.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-3 px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-slate-900 dark:text-white no-underline group"
+                          onClick={() => setShowCVDropdown(false)}
+                        >
+                          <Eye size={18} className="text-primary group-hover:scale-110 transition-transform" />
+                          <span className="font-medium">View CV</span>
+                        </a>
+                        <div className="h-px bg-slate-200 dark:bg-slate-700"></div>
+                        <a
+                          href="/Nazir-Resume.pdf"
+                          download="Nazir_Hussain_Resume.pdf"
+                          className="flex items-center gap-3 px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-slate-900 dark:text-white no-underline group"
+                          onClick={() => setShowCVDropdown(false)}
+                        >
+                          <Download size={18} className="text-green-500 group-hover:scale-110 transition-transform" />
+                          <span className="font-medium">Download CV</span>
+                        </a>
+                      </motion.div>
+                    </>
+                  )}
+                </AnimatePresence>
+              </div>
+            ) : (
+              <div className="px-8 py-4 rounded-full border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-300 font-semibold">
+                Resume not available yet
+              </div>
+            )}
             </div>
           </div>
         </motion.div>

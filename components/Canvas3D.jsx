@@ -39,10 +39,10 @@ const ParticleField = () => {
   );
 };
 
-const Canvas3D = () => {
+const Canvas3D = ({ onCreated }) => {
   return (
     <div className="absolute inset-0 z-0 pointer-events-none opacity-50">
-      <Canvas camera={{ position: [0, 0, 1.5] }}>
+      <Canvas camera={{ position: [0, 0, 1.5] }} onCreated={onCreated}>
         <ParticleField />
       </Canvas>
     </div>

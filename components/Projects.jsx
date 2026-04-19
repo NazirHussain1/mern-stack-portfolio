@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { PROJECTS } from '../constants.js';
 import { Github, ExternalLink } from 'lucide-react';
+import { ProjectCardSkeleton } from './SkeletonLoader.jsx';
 
 const Projects = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <section id="projects" className="py-24 bg-light dark:bg-dark">
       <div className="container mx-auto px-4">
@@ -12,9 +20,16 @@ const Projects = () => {
           <p className="text-slate-500 dark:text-slate-400">Selected work showcasing my development expertise</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          {PROJECTS.map((project, idx) => (
-            <motion.div
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            {Array.from({ length: 4 }).map((_, idx) => (
+              <ProjectCardSkeleton key={idx} />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            {PROJECTS.map((project, idx) => (
+              <motion.div
               key={project.title}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}

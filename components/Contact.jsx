@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Phone, MessageCircle, CheckCircle } from 'lucide-react';
+import { Mail, MapPin, Phone, MessageCircle, CheckCircle, Send } from 'lucide-react';
 import emailjs from '@emailjs/browser';
+import { ContactFormSkeleton } from './SkeletonLoader.jsx';
 import { EMAIL, PHONE, LOCATION } from '../constants.js';
 
 const Contact = () => {
@@ -132,9 +133,10 @@ const Contact = () => {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="glass p-10 rounded-3xl border border-slate-200 dark:border-slate-800 h-full shadow-2xl"
+              className="relative glass p-10 rounded-3xl border border-slate-200 dark:border-slate-800 h-full shadow-2xl"
               onSubmit={handleSubmit}
             >
+              {isSubmitting && <ContactFormSkeleton />}
               {isSubmitted && (
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
@@ -148,7 +150,7 @@ const Contact = () => {
                 </motion.div>
               )}
               
-              <div className="grid gap-4 md:grid-cols-2">
+              <fieldset disabled={isSubmitting} className="grid gap-4 md:grid-cols-2">
                 <div className="md:col-span-1">
                   <div className="form-group mb-4">
                     <label className="text-sm font-bold uppercase text-slate-500 tracking-wider mb-2 block">Name</label>
@@ -235,7 +237,7 @@ const Contact = () => {
                     ></textarea>
                   </div>
                 </div>
-              </div>
+              </fieldset>
               <button 
                 type="submit"
                 disabled={isSubmitting}
