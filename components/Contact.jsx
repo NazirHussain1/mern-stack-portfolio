@@ -18,7 +18,7 @@ const Contact = () => {
 
   // Initialize EmailJS
   useEffect(() => {
-    emailjs.init('mlHH4nH8xbBhqOlV5'); // Initialize with your public key
+    emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
   }, []);
 
   const handleInputChange = (e) => {
@@ -34,9 +34,9 @@ const Contact = () => {
     
     try {
       // EmailJS configuration
-      const serviceID = 'service_logq1j1'; // Your correct Service ID
-      const templateID = 'template_3p8kkab'; // Your Template ID  
-      const publicKey = 'mlHH4nH8xbBhqOlV5'; // Your Public Key
+      const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
       
       console.log('Sending email with:', { serviceID, templateID, publicKey });
       
