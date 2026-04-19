@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Mail, MapPin, Phone, MessageCircle, CheckCircle } from 'lucide-react';
+import { Mail, MapPin, Phone, MessageCircle, CheckCircle } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import { EMAIL, PHONE, LOCATION } from '../constants.js';
 

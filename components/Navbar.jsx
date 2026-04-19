@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Sun, Moon, Menu, X, Database, Code, Server } from 'lucide-react';
+import { Sun, Moon, Menu, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Navbar = ({ darkMode, toggleTheme }) => {
