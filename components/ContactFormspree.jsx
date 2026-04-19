@@ -36,8 +36,8 @@ const Contact = () => {
           <p className="text-slate-500 dark:text-slate-400">Let's discuss your next project or role opportunity</p>
         </div>
 
-        <div className="row g-5">
-          <div className="col-lg-5">
+        <div className="grid gap-5 lg:grid-cols-12">
+          <div className="lg:col-span-5">
             <div className="space-y-6">
               {[
                 { icon: <Mail />, title: "Email", value: EMAIL, href: `mailto:${EMAIL}` },
@@ -67,7 +67,7 @@ const Contact = () => {
             </div>
           </div>
 
-          <div className="col-lg-7">
+          <div className="lg:col-span-7">
             <motion.form
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -88,8 +88,8 @@ const Contact = () => {
                 </motion.div>
               )}
               
-              <div className="row g-4">
-                <div className="col-md-6">
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="md:col-span-1">
                   <div className="form-group mb-4">
                     <label className="text-sm font-bold uppercase text-slate-500 tracking-wider mb-2 block">Name</label>
                     <input 
@@ -104,7 +104,7 @@ const Contact = () => {
                     <ValidationError prefix="Name" field="name" errors={state.errors} />
                   </div>
                 </div>
-                <div className="col-md-6">
+                <div className="md:col-span-1">
                   <div className="form-group mb-4">
                     <label className="text-sm font-bold uppercase text-slate-500 tracking-wider mb-2 block">Email</label>
                     <input 
@@ -119,7 +119,7 @@ const Contact = () => {
                     <ValidationError prefix="Email" field="email" errors={state.errors} />
                   </div>
                 </div>
-                <div className="col-12">
+                <div className="md:col-span-2">
                   <div className="form-group mb-6">
                     <label className="text-sm font-bold uppercase text-slate-500 tracking-wider mb-2 block">Message</label>
                     <textarea 

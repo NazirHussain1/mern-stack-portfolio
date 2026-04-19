@@ -7,8 +7,8 @@ const Education = () => {
   return (
     <section className="py-24 bg-white dark:bg-slate-900/50">
       <div className="container mx-auto px-4">
-        <div className="row">
-          <div className="col-lg-6 mb-12 lg:mb-0">
+        <div className="grid gap-12 lg:grid-cols-2">
+          <div className="lg:col-span-1 mb-12 lg:mb-0">
             <h2 className="text-4xl font-display font-bold mb-10 italic">Academic <span className="text-primary">Journey</span></h2>
             {EDUCATIONS.map((edu, idx) => (
               <motion.div
@@ -49,7 +49,7 @@ const Education = () => {
             </motion.div>
           </div>
 
-          <div className="col-lg-6">
+          <div className="lg:col-span-1">
             <h2 className="text-4xl font-display font-bold mb-10 italic">Linguistic <span className="text-primary">Fluency</span></h2>
             <motion.div
               initial={{ opacity: 0, x: 20 }}

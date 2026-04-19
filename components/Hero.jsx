@@ -4,35 +4,49 @@ import { Download, Mail, ArrowDown, MessageCircle, Eye, ChevronDown } from 'luci
 import Canvas3D from './Canvas3D.jsx';
 import { NAME, PHONE } from '../constants.js';
 
+const typedWords = ["MERN Stack Developer", "MongoDB Expert", "Next.js Specialist", "Full Stack Engineer"];
+
 const Hero = () => {
   const [text, setText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
-  const [typingSpeed, setTypingSpeed] = useState(150);
   const [showCVDropdown, setShowCVDropdown] = useState(false);
 
-  const words = ["MERN Stack Developer", "MongoDB Expert", "Next.js Specialist", "Full Stack Engineer"];
+  const typingSpeed = isDeleting ? 80 : 150;
 
   useEffect(() => {
-    const handleType = () => {
-      const i = loopNum % words.length;
-      const fullText = words[i];
+    const currentIndex = loopNum % typedWords.length;
+    const fullText = typedWords[currentIndex];
 
-      setText(isDeleting ? fullText.substring(0, text.length - 1) : fullText.substring(0, text.length + 1));
+    let timer = null;
 
-      setTypingSpeed(isDeleting ? 80 : 150);
-
-      if (!isDeleting && text === fullText) {
-        setTimeout(() => setIsDeleting(true), 1500);
-      } else if (isDeleting && text === '') {
-        setIsDeleting(false);
-        setLoopNum(loopNum + 1);
+    if (!isDeleting) {
+      if (text !== fullText) {
+        timer = setTimeout(() => {
+          setText(fullText.substring(0, text.length + 1));
+        }, typingSpeed);
+      } else {
+        timer = setTimeout(() => {
+          setIsDeleting(true);
+        }, 1500);
       }
-    };
+    } else {
+      if (text !== '') {
+        timer = setTimeout(() => {
+          setText(fullText.substring(0, text.length - 1));
+        }, typingSpeed);
+      } else {
+        timer = setTimeout(() => {
+          setIsDeleting(false);
+          setLoopNum((prev) => prev + 1);
+        }, typingSpeed);
+      }
+    }
 
-    const timer = setTimeout(handleType, typingSpeed);
-    return () => clearTimeout(timer);
-  }, [text, isDeleting, loopNum, typingSpeed, words]);
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, [text, isDeleting, loopNum]);
 
   const whatsappUrl = `https://wa.me/${PHONE.replace(/\+/g, '')}`;
 

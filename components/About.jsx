@@ -7,8 +7,8 @@ const About = () => {
   return (
     <section id="about" className="py-24 bg-white dark:bg-slate-900/50">
       <div className="container mx-auto px-4 md:px-8">
-        <div className="row align-items-center">
-          <div className="col-lg-5 mb-12 lg:mb-0">
+        <div className="grid gap-12 lg:grid-cols-12 items-center">
+          <div className="lg:col-span-5 mb-12 lg:mb-0">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -24,7 +24,7 @@ const About = () => {
             </motion.div>
           </div>
           
-          <div className="col-lg-7 lg:ps-12">
+          <div className="lg:col-span-7 lg:pl-12">
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}

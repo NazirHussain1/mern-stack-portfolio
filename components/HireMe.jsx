@@ -57,8 +57,8 @@ const HireMe = () => {
           </motion.div>
         </div>
 
-        <div className="row g-5 mb-16">
-          <div className="col-lg-6">
+        <div className="grid gap-5 mb-16 lg:grid-cols-2">
+          <div>
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -85,7 +85,7 @@ const HireMe = () => {
             </motion.div>
           </div>
 
-          <div className="col-lg-6">
+          <div>
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
