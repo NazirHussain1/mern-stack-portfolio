@@ -10,6 +10,7 @@ import Education from './components/Education.jsx';
 import HireMe from './components/HireMe.jsx';
 import Contact from './components/Contact.jsx';
 import Footer from './components/Footer.jsx';
+import ErrorBoundary from './components/ErrorBoundary.jsx';
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(true);
@@ -25,22 +26,24 @@ const App = () => {
   const toggleTheme = () => setDarkMode(!darkMode);
 
   return (
-    <div className="min-h-screen transition-colors duration-300">
-      <Navbar darkMode={darkMode} toggleTheme={toggleTheme} />
-      
-      <main>
-        <Hero />
-        <About />
-        <Skills />
-        <ExperienceTimeline />
-        <Projects />
-        <Education />
-        <HireMe />
-        <Contact />
-      </main>
+    <ErrorBoundary>
+      <div className="min-h-screen transition-colors duration-300">
+        <Navbar darkMode={darkMode} toggleTheme={toggleTheme} />
+        
+        <main>
+          <Hero />
+          <About />
+          <Skills />
+          <ExperienceTimeline />
+          <Projects />
+          <Education />
+          <HireMe />
+          <Contact />
+        </main>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </ErrorBoundary>
   );
 };
 
