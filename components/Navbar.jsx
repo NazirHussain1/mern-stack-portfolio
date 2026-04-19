@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Sun, Moon, Menu, X } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { NavLink } from 'react-router-dom';
 
 const Navbar = ({ darkMode, toggleTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,13 +14,14 @@ const Navbar = ({ darkMode, toggleTheme }) => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Hire Me', href: '#hire-me' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', to: '/#home' },
+    { name: 'About', to: '/#about' },
+    { name: 'Skills', to: '/#skills' },
+    { name: 'Experience', to: '/#experience' },
+    { name: 'Projects', to: '/#projects' },
+    { name: 'Services', to: '/services' },
+    { name: 'Hire Me', to: '/#hire-me' },
+    { name: 'Contact', to: '/#contact' },
   ];
 
   return (
@@ -92,13 +94,15 @@ const Navbar = ({ darkMode, toggleTheme }) => {
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center space-x-8">
           {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href}
-              className="font-medium hover:text-primary transition-colors text-slate-600 dark:text-slate-300 dark:hover:text-white"
+            <NavLink
+              key={link.name}
+              to={link.to}
+              className={({ isActive }) =>
+                `font-medium transition-colors ${isActive ? 'text-primary' : 'text-slate-600 dark:text-slate-300'} hover:text-primary dark:hover:text-white`
+              }
             >
               {link.name}
-            </a>
+            </NavLink>
           ))}
           <button 
             type="button"
@@ -141,14 +145,16 @@ const Navbar = ({ darkMode, toggleTheme }) => {
         >
           <div className="flex flex-col p-4 space-y-4">
             {navLinks.map((link) => (
-              <a 
-                key={link.name} 
-                href={link.href}
+              <NavLink
+                key={link.name}
+                to={link.to}
                 onClick={() => setIsOpen(false)}
-                className="text-lg font-medium"
+                className={({ isActive }) =>
+                  `text-lg font-medium ${isActive ? 'text-primary' : 'text-slate-800 dark:text-slate-200'} transition-colors hover:text-primary`
+                }
               >
                 {link.name}
-              </a>
+              </NavLink>
             ))}
           </div>
         </motion.div>

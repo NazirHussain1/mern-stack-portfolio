@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar.jsx';
 import Hero from './components/Hero.jsx';
 import About from './components/About.jsx';
@@ -9,6 +9,7 @@ import Projects from './components/Projects.jsx';
 import Education from './components/Education.jsx';
 import HireMe from './components/HireMe.jsx';
 import Contact from './components/Contact.jsx';
+import Services from './components/Services.jsx';
 import Footer from './components/Footer.jsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 
@@ -33,24 +34,42 @@ const App = () => {
 
   const toggleTheme = () => setDarkMode((prev) => !prev);
 
+  const MainLayout = () => (
+    <div className="min-h-screen transition-colors duration-300">
+      <Navbar darkMode={darkMode} toggleTheme={toggleTheme} />
+      <main>
+        <Hero />
+        <About />
+        <Skills />
+        <ExperienceTimeline />
+        <Projects />
+        <Education />
+        <HireMe />
+        <Contact />
+      </main>
+      <Footer />
+    </div>
+  );
+
+  const ServicesLayout = () => (
+    <div className="min-h-screen transition-colors duration-300">
+      <Navbar darkMode={darkMode} toggleTheme={toggleTheme} />
+      <main>
+        <Services />
+      </main>
+      <Footer />
+    </div>
+  );
+
   return (
     <ErrorBoundary>
-      <div className="min-h-screen transition-colors duration-300">
-        <Navbar darkMode={darkMode} toggleTheme={toggleTheme} />
-        
-        <main>
-          <Hero />
-          <About />
-          <Skills />
-          <ExperienceTimeline />
-          <Projects />
-          <Education />
-          <HireMe />
-          <Contact />
-        </main>
-
-        <Footer />
-      </div>
+      <Router>
+        <Routes>
+          <Route path="/services" element={<ServicesLayout />} />
+          <Route path="/" element={<MainLayout />} />
+          <Route path="*" element={<MainLayout />} />
+        </Routes>
+      </Router>
     </ErrorBoundary>
   );
 };
