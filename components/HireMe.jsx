@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Briefcase, Code, Clock, Star, CheckCircle } from 'lucide-react';
+import { Briefcase, Code, Clock, Star, CheckCircle, ArrowRight } from 'lucide-react';
 import { EMAIL, PHONE } from '../constants.js';
 
 const HireMe = () => {

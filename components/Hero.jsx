@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Download, Mail, ArrowDown, MessageCircle, Eye, ChevronDown } from 'lucide-react';
-import Canvas3D from './Canvas3D.jsx';
+const Canvas3D = lazy(() => import('./Canvas3D.jsx'));
 import { HeroCanvasSkeleton } from './SkeletonLoader.jsx';
 import { NAME, PHONE } from '../constants.js';
 
@@ -73,9 +73,10 @@ const Hero = () => {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+      <Suspense fallback={<HeroCanvasSkeleton />}>
+        <Canvas3D onCreated={() => setCanvasLoaded(true)} />
+      </Suspense>
       {!canvasLoaded && <HeroCanvasSkeleton />}
-      <Canvas3D onCreated={() => setCanvasLoaded(true)} />
-      
       <div className="container relative z-20 mx-auto px-4 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

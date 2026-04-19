@@ -33,14 +33,21 @@ const Projects = () => {
               key={project.title}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: idx * 0.1 }}
+              whileHover={{ y: -8, scale: 1.02 }}
+              transition={{ type: 'spring', stiffness: 220, damping: 20, delay: idx * 0.1 }}
               viewport={{ once: true }}
               className="group relative glass rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 flex flex-col h-full"
             >
               <figure className="relative overflow-hidden aspect-video bg-slate-200 dark:bg-slate-800">
                 <img 
-                  src={`https://picsum.photos/seed/${project.title}/800/450`} 
+                  src={`https://picsum.photos/seed/${encodeURIComponent(project.title)}/720/405`} 
                   alt={`Screenshot of ${project.title}`} 
+                  loading="lazy"
+                  decoding="async"
+                  fetchpriority="low"
+                  width="720"
+                  height="405"
+                  sizes="(max-width: 768px) 100vw, 45vw"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-70"
                 />
                 <figcaption className="sr-only">Screenshot of {project.title}</figcaption>

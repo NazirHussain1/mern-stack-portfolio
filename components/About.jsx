@@ -17,8 +17,12 @@ const About = () => {
             >
               <figure className="relative w-full h-full">
                 <img 
-                  src="https://picsum.photos/800/800?grayscale" 
+                  src="https://picsum.photos/seed/profile/640/640?grayscale" 
                   alt="Portrait of Nazir Hussain"
+                  loading="lazy"
+                  decoding="async"
+                  width="640"
+                  height="640"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-primary/20 mix-blend-overlay"></div>
