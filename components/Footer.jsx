@@ -1,5 +1,5 @@
 import React from 'react';
-import { Linkedin, Github } from 'lucide-react';
+import { Linkedin, Github, Facebook, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { NAME, LINKEDIN, GITHUB } from '../constants.js';
 

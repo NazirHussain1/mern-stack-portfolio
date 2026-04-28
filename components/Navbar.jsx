@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Sun, Moon, Menu, X } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { NavLink } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Navbar = ({ darkMode, toggleTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -14,15 +16,49 @@ const Navbar = ({ darkMode, toggleTheme }) => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', to: '/#home' },
-    { name: 'About', to: '/#about' },
-    { name: 'Skills', to: '/#skills' },
-    { name: 'Experience', to: '/#experience' },
-    { name: 'Projects', to: '/#projects' },
-    { name: 'Services', to: '/services' },
-    { name: 'Hire Me', to: '/#hire-me' },
-    { name: 'Contact', to: '/#contact' },
+    { name: 'Home', path: '/', sectionId: 'home' },
+    { name: 'About', path: '/', sectionId: 'about' },
+    { name: 'Skills', path: '/', sectionId: 'skills' },
+    { name: 'Experience', path: '/', sectionId: 'experience' },
+    { name: 'Projects', path: '/', sectionId: 'projects' },
+    { name: 'Services', path: '/services', sectionId: null },
+    { name: 'Hire Me', path: '/', sectionId: 'hire-me' },
+    { name: 'Contact', path: '/', sectionId: 'contact' },
   ];
+
+  const handleNavClick = (link) => {
+    setIsOpen(false);
+    
+    // If clicking on a section link
+    if (link.sectionId) {
+      // If not on home page, navigate there first
+      if (location.pathname !== '/') {
+        navigate('/');
+        // Use setTimeout to allow navigation to complete, then scroll
+        setTimeout(() => {
+          const element = document.getElementById(link.sectionId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      } else {
+        // Already on home page, just scroll
+        const element = document.getElementById(link.sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    } else {
+      // Navigate to different page
+      navigate(link.path);
+    }
+  };
+
+  const isActive = (link) => {
+    if (link.path === '/' && location.pathname === '/') return true;
+    if (link.path === '/services' && location.pathname === '/services') return true;
+    return false;
+  };
 
   return (
     <nav aria-label="Primary navigation" className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'py-4 glass shadow-lg' : 'py-6 bg-transparent'}`}>
@@ -94,15 +130,13 @@ const Navbar = ({ darkMode, toggleTheme }) => {
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center space-x-8">
           {navLinks.map((link) => (
-            <NavLink
+            <button
               key={link.name}
-              to={link.to}
-              className={({ isActive }) =>
-                `font-medium transition-colors ${isActive ? 'text-primary' : 'text-slate-600 dark:text-slate-300'} hover:text-primary dark:hover:text-white`
-              }
+              onClick={() => handleNavClick(link)}
+              className={`font-medium transition-colors cursor-pointer ${isActive(link) ? 'text-primary' : 'text-slate-600 dark:text-slate-300'} hover:text-primary dark:hover:text-white`}
             >
               {link.name}
-            </NavLink>
+            </button>
           ))}
           <button 
             type="button"
@@ -145,16 +179,13 @@ const Navbar = ({ darkMode, toggleTheme }) => {
         >
           <div className="flex flex-col p-4 space-y-4">
             {navLinks.map((link) => (
-              <NavLink
+              <button
                 key={link.name}
-                to={link.to}
-                onClick={() => setIsOpen(false)}
-                className={({ isActive }) =>
-                  `text-lg font-medium ${isActive ? 'text-primary' : 'text-slate-800 dark:text-slate-200'} transition-colors hover:text-primary`
-                }
+                onClick={() => handleNavClick(link)}
+                className={`text-lg font-medium text-left ${isActive(link) ? 'text-primary' : 'text-slate-800 dark:text-slate-200'} transition-colors hover:text-primary`}
               >
                 {link.name}
-              </NavLink>
+              </button>
             ))}
           </div>
         </motion.div>
