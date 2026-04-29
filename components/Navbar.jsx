@@ -1,30 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { Sun, Moon, Menu, X } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = ({ darkMode, toggleTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
       
-      // Update active section based on scroll position
-      if (location.pathname === '/') {
-        const sections = ['home', 'about', 'skills', 'experience', 'projects', 'hire-me', 'contact'];
-        for (const sectionId of sections) {
-          const element = document.getElementById(sectionId);
-          if (element) {
-            const rect = element.getBoundingClientRect();
-            if (rect.top <= 150 && rect.bottom >= 150) {
-              setActiveSection(sectionId);
-              break;
+      // Update URL hash based on scroll position
+      const sections = ['home', 'about', 'skills', 'experience', 'projects', 'hire-me', 'contact'];
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 200 && rect.bottom >= 200) {
+            setActiveSection(sectionId);
+            // Update URL without reloading
+            if (window.location.hash !== `#${sectionId}`) {
+              window.history.replaceState(null, '', `#${sectionId}`);
             }
+            break;
           }
         }
       }
@@ -32,67 +33,62 @@ const Navbar = ({ darkMode, toggleTheme }) => {
     
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [location.pathname]);
+  }, []);
+
+  // Handle URL hash changes from browser navigation
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1) || 'home';
+      const element = document.getElementById(hash);
+      if (element) {
+        const headerOffset = 100;
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - headerOffset;
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+        setActiveSection(hash);
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    
+    // Check initial hash on mount
+    const initialHash = window.location.hash.slice(1) || 'home';
+    setActiveSection(initialHash);
+    
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
 
   const navLinks = [
-    { name: 'Home', path: '/', sectionId: 'home' },
-    { name: 'About', path: '/', sectionId: 'about' },
-    { name: 'Skills', path: '/', sectionId: 'skills' },
-    { name: 'Experience', path: '/', sectionId: 'experience' },
-    { name: 'Projects', path: '/', sectionId: 'projects' },
-    { name: 'Services', path: '/services', sectionId: null },
-    { name: 'Hire Me', path: '/', sectionId: 'hire-me' },
-    { name: 'Contact', path: '/', sectionId: 'contact' },
+    { name: 'Home', hash: 'home', isExternal: false },
+    { name: 'About', hash: 'about', isExternal: false },
+    { name: 'Skills', hash: 'skills', isExternal: false },
+    { name: 'Experience', hash: 'experience', isExternal: false },
+    { name: 'Projects', hash: 'projects', isExternal: false },
+    { name: 'Services', hash: null, isExternal: true, path: '/services' },
+    { name: 'Hire Me', hash: 'hire-me', isExternal: false },
+    { name: 'Contact', hash: 'contact', isExternal: false },
   ];
-
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const headerOffset = 100; // Account for fixed navbar
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-      const offsetPosition = elementPosition - headerOffset;
-      
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-      setActiveSection(sectionId);
-    }
-  };
 
   const handleNavClick = (link) => {
     setIsOpen(false);
     
-    if (link.name === 'Home') {
-      // Home - scroll to top
-      if (location.pathname !== '/') {
-        navigate('/');
-      }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      setActiveSection('home');
-    } else if (link.sectionId) {
-      // Section link
-      if (location.pathname !== '/') {
-        navigate('/');
-        // Wait for navigation to complete
-        setTimeout(() => {
-          scrollToSection(link.sectionId);
-        }, 300);
-      } else {
-        scrollToSection(link.sectionId);
-      }
-    } else {
-      // Different page (Services)
+    if (link.isExternal) {
       navigate(link.path);
+    } else {
+      // Update URL hash
+      window.location.hash = link.hash;
     }
   };
 
   const isActive = (link) => {
-    if (link.name === 'Services') {
-      return location.pathname === '/services';
+    if (link.isExternal) {
+      return window.location.pathname === link.path;
     }
-    return location.pathname === '/' && link.sectionId === activeSection;
-  };
+    return activeSection === link.hash;
 
   return (
     <nav aria-label="Primary navigation" className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'py-4 glass shadow-lg' : 'py-6 bg-transparent'}`}>

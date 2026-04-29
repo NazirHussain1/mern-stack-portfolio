@@ -122,11 +122,11 @@ const Hero = () => {
               <div className="relative">
                 <motion.button
                   onClick={() => setShowCVDropdown(!showCVDropdown)}
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 border-2 border-slate-200 dark:border-slate-800 rounded-full font-bold flex items-center gap-2 hover:bg-slate-100 dark:hover:bg-slate-900 transition-all text-slate-900 dark:text-white"
+                  className="px-8 py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-full font-bold shadow-lg shadow-emerald-500/30 flex items-center gap-2 hover:shadow-xl hover:shadow-emerald-500/40 transition-all no-underline group"
                 >
-                  <Download size={20} />
+                  <Download size={20} className="group-hover:animate-bounce" />
                   Resume/CV
                   <ChevronDown size={16} className={`transition-transform duration-300 ${showCVDropdown ? 'rotate-180' : ''}`} />
                 </motion.button>
@@ -144,27 +144,36 @@ const Hero = () => {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -10, scale: 0.95 }}
                         transition={{ duration: 0.2 }}
-                        className="absolute top-full mt-3 left-1/2 transform -translate-x-1/2 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden z-[101]"
+                        className="absolute top-full mt-3 left-1/2 transform -translate-x-1/2 w-56 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden z-[101] backdrop-blur-xl"
                       >
+                        <div className="px-6 py-3 bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 border-b border-slate-200 dark:border-slate-700">
+                          <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 tracking-widest uppercase">Resume Options</p>
+                        </div>
                         <a
                           href="/Nazir-Resume.pdf"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-3 px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-slate-900 dark:text-white no-underline group"
+                          className="flex items-center gap-3 px-6 py-4 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors text-slate-900 dark:text-white no-underline group first-of-type:pt-4"
                           onClick={() => setShowCVDropdown(false)}
                         >
-                          <Eye size={18} className="text-primary group-hover:scale-110 transition-transform" />
-                          <span className="font-medium">View CV</span>
+                          <Eye size={18} className="text-emerald-500 group-hover:scale-110 transition-transform" />
+                          <div className="flex-1">
+                            <span className="font-semibold block">View CV</span>
+                            <span className="text-xs text-slate-500 dark:text-slate-400">Open in browser</span>
+                          </div>
                         </a>
                         <div className="h-px bg-slate-200 dark:bg-slate-700"></div>
                         <a
                           href="/Nazir-Resume.pdf"
                           download="Nazir_Hussain_Resume.pdf"
-                          className="flex items-center gap-3 px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-slate-900 dark:text-white no-underline group"
+                          className="flex items-center gap-3 px-6 py-4 hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors text-slate-900 dark:text-white no-underline group"
                           onClick={() => setShowCVDropdown(false)}
                         >
                           <Download size={18} className="text-green-500 group-hover:scale-110 transition-transform" />
-                          <span className="font-medium">Download CV</span>
+                          <div className="flex-1">
+                            <span className="font-semibold block">Download CV</span>
+                            <span className="text-xs text-slate-500 dark:text-slate-400">Save to device</span>
+                          </div>
                         </a>
                       </motion.div>
                     </>
@@ -172,9 +181,13 @@ const Hero = () => {
                 </AnimatePresence>
               </div>
             ) : (
-              <div className="px-8 py-4 rounded-full border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-300 font-semibold">
-                Resume not available yet
-              </div>
+              <motion.div 
+                whileHover={{ scale: 1.02 }}
+                className="px-8 py-4 rounded-full border-2 border-dashed border-slate-300 dark:border-slate-600 bg-slate-50/50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-300 font-semibold flex items-center gap-2 backdrop-blur-sm"
+              >
+                <AlertCircle size={18} className="text-slate-400" />
+                Coming Soon
+              </motion.div>
             )}
             </div>
           </div>
