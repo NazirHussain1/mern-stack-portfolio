@@ -6,14 +6,33 @@ import { useLocation, useNavigate } from 'react-router-dom';
 const Navbar = ({ darkMode, toggleTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+      
+      // Update active section based on scroll position
+      if (location.pathname === '/') {
+        const sections = ['home', 'about', 'skills', 'experience', 'projects', 'hire-me', 'contact'];
+        for (const sectionId of sections) {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            if (rect.top <= 150 && rect.bottom >= 150) {
+              setActiveSection(sectionId);
+              break;
+            }
+          }
+        }
+      }
+    };
+    
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [location.pathname]);
 
   const navLinks = [
     { name: 'Home', path: '/', sectionId: 'home' },
@@ -26,38 +45,53 @@ const Navbar = ({ darkMode, toggleTheme }) => {
     { name: 'Contact', path: '/', sectionId: 'contact' },
   ];
 
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const headerOffset = 100; // Account for fixed navbar
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - headerOffset;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+      setActiveSection(sectionId);
+    }
+  };
+
   const handleNavClick = (link) => {
     setIsOpen(false);
     
-    // If clicking on a section link
-    if (link.sectionId) {
-      // If not on home page, navigate there first
+    if (link.name === 'Home') {
+      // Home - scroll to top
       if (location.pathname !== '/') {
         navigate('/');
-        // Use setTimeout to allow navigation to complete, then scroll
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setActiveSection('home');
+    } else if (link.sectionId) {
+      // Section link
+      if (location.pathname !== '/') {
+        navigate('/');
+        // Wait for navigation to complete
         setTimeout(() => {
-          const element = document.getElementById(link.sectionId);
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-          }
-        }, 100);
+          scrollToSection(link.sectionId);
+        }, 300);
       } else {
-        // Already on home page, just scroll
-        const element = document.getElementById(link.sectionId);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
+        scrollToSection(link.sectionId);
       }
     } else {
-      // Navigate to different page
+      // Different page (Services)
       navigate(link.path);
     }
   };
 
   const isActive = (link) => {
-    if (link.path === '/' && location.pathname === '/') return true;
-    if (link.path === '/services' && location.pathname === '/services') return true;
-    return false;
+    if (link.name === 'Services') {
+      return location.pathname === '/services';
+    }
+    return location.pathname === '/' && link.sectionId === activeSection;
   };
 
   return (
