@@ -9,6 +9,22 @@ const Navbar = ({ darkMode, toggleTheme }) => {
   const [activeSection, setActiveSection] = useState('home');
   const navigate = useNavigate();
 
+  const scrollToSection = (sectionId, shouldSmoothScroll = true) => {
+    const element = document.getElementById(sectionId);
+    if (!element) return false;
+
+    const headerOffset = 100;
+    const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+    const offsetPosition = elementPosition - headerOffset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: shouldSmoothScroll ? 'smooth' : 'auto'
+    });
+    setActiveSection(sectionId);
+    return true;
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -39,18 +55,7 @@ const Navbar = ({ darkMode, toggleTheme }) => {
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.slice(1) || 'home';
-      const element = document.getElementById(hash);
-      if (element) {
-        const headerOffset = 100;
-        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-        const offsetPosition = elementPosition - headerOffset;
-        
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
-        setActiveSection(hash);
-      }
+      scrollToSection(hash);
     };
 
     window.addEventListener('hashchange', handleHashChange);
@@ -58,6 +63,11 @@ const Navbar = ({ darkMode, toggleTheme }) => {
     // Check initial hash on mount
     const initialHash = window.location.hash.slice(1) || 'home';
     setActiveSection(initialHash);
+    if (initialHash !== 'home') {
+      window.requestAnimationFrame(() => {
+        scrollToSection(initialHash, false);
+      });
+    }
     
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
@@ -78,8 +88,18 @@ const Navbar = ({ darkMode, toggleTheme }) => {
     
     if (link.isExternal) {
       navigate(link.path);
+      return;
+    }
+
+    if (window.location.pathname !== '/') {
+      navigate({ pathname: '/', hash: `#${link.hash}` });
+      return;
+    }
+
+    const scrolledToSection = scrollToSection(link.hash);
+    if (scrolledToSection) {
+      window.history.replaceState(null, '', `#${link.hash}`);
     } else {
-      // Update URL hash
       window.location.hash = link.hash;
     }
   };
@@ -89,16 +109,18 @@ const Navbar = ({ darkMode, toggleTheme }) => {
       return window.location.pathname === link.path;
     }
     return activeSection === link.hash;
+  };
 
   return (
     <nav aria-label="Primary navigation" className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'py-4 glass shadow-lg' : 'py-6 bg-transparent'}`}>
       <div className="container mx-auto px-4 md:px-8 flex justify-between items-center">
-        <motion.a 
-          href="#home"
+        <motion.button
+          type="button"
+          onClick={() => handleNavClick({ hash: 'home', isExternal: false })}
           aria-label="Go to home section"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="flex items-center cursor-pointer group"
+          className="flex items-center cursor-pointer group bg-transparent border-0 p-0"
         >
           {/* Compact MERN Stack Logo */}
           <div className="flex items-center gap-2">
@@ -155,7 +177,7 @@ const Navbar = ({ darkMode, toggleTheme }) => {
               NAZIR.
             </motion.div>
           </div>
-        </motion.a>
+        </motion.button>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center space-x-8">

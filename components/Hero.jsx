@@ -1,6 +1,6 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Download, Mail, ArrowDown, MessageCircle, Eye, ChevronDown } from 'lucide-react';
+import { Download, Mail, ArrowDown, MessageCircle, Eye, ChevronDown, AlertCircle } from 'lucide-react';
 const Canvas3D = lazy(() => import('./Canvas3D.jsx'));
 import { HeroCanvasSkeleton } from './SkeletonLoader.jsx';
 import { NAME, PHONE } from '../constants.js';
@@ -108,6 +108,7 @@ const Hero = () => {
             <motion.a
               href={whatsappUrl}
               target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="px-8 py-4 bg-green-600 text-white rounded-full font-bold shadow-lg shadow-green-600/30 flex items-center gap-2 hover:bg-green-700 transition-all no-underline"
