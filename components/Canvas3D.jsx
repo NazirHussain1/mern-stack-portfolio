@@ -1,7 +1,6 @@
 import React, { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
-import * as THREE from 'three';
 
 const ParticleField = () => {
   const ref = useRef();
@@ -42,7 +41,12 @@ const ParticleField = () => {
 const Canvas3D = ({ onCreated }) => {
   return (
     <div className="absolute inset-0 z-0 pointer-events-none opacity-50">
-      <Canvas camera={{ position: [0, 0, 1.5] }} onCreated={onCreated}>
+      <Canvas
+        camera={{ position: [0, 0, 1.5] }}
+        dpr={[1, 1.5]}
+        gl={{ antialias: false, powerPreference: 'high-performance' }}
+        onCreated={onCreated}
+      >
         <ParticleField />
       </Canvas>
     </div>

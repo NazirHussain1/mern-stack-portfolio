@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useEffect, lazy, Suspense, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from './components/Navbar.jsx';
@@ -14,6 +14,50 @@ const LazyHireMe = lazy(() => import('./components/HireMe.jsx'));
 const LazyContact = lazy(() => import('./components/Contact.jsx'));
 const LazyServices = lazy(() => import('./components/Services.jsx'));
 const LazyFooter = lazy(() => import('./components/Footer.jsx'));
+
+const SectionLoader = ({ minHeightClass = 'min-h-[24rem]' }) => (
+  <div className={`${minHeightClass} flex items-center justify-center text-slate-500 dark:text-slate-400`}>
+    Loading section...
+  </div>
+);
+
+const DeferredSection = ({ sectionId, children, rootMargin = '500px 0px', minHeightClass }) => {
+  const [shouldLoad, setShouldLoad] = useState(false);
+  const anchorRef = useRef(null);
+
+  useEffect(() => {
+    if (shouldLoad) return;
+
+    const element = anchorRef.current;
+    if (!element || typeof IntersectionObserver === 'undefined') {
+      setShouldLoad(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin }
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [rootMargin, shouldLoad]);
+
+  return (
+    <div id={shouldLoad ? undefined : sectionId} ref={anchorRef}>
+      {shouldLoad ? (
+        <Suspense fallback={<SectionLoader minHeightClass={minHeightClass} />}>{children}</Suspense>
+      ) : (
+        <SectionLoader minHeightClass={minHeightClass} />
+      )}
+    </div>
+  );
+};
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(() => {
@@ -35,12 +79,6 @@ const App = () => {
   }, [darkMode]);
 
   const toggleTheme = () => setDarkMode((prev) => !prev);
-
-  const SectionLoader = () => (
-    <div className="min-h-[24rem] flex items-center justify-center text-slate-500 dark:text-slate-400">
-      Loading section...
-    </div>
-  );
 
   const pageVariants = {
     initial: { opacity: 0, y: 24 },
@@ -71,31 +109,31 @@ const App = () => {
       <Navbar darkMode={darkMode} toggleTheme={toggleTheme} />
       <main>
         <Hero />
-        <Suspense fallback={<SectionLoader />}>
+        <DeferredSection sectionId="about" minHeightClass="min-h-[32rem]">
           <LazyAbout />
-        </Suspense>
-        <Suspense fallback={<SectionLoader />}>
+        </DeferredSection>
+        <DeferredSection sectionId="skills" minHeightClass="min-h-[28rem]">
           <LazySkills />
-        </Suspense>
-        <Suspense fallback={<SectionLoader />}>
+        </DeferredSection>
+        <DeferredSection sectionId="experience" minHeightClass="min-h-[32rem]">
           <LazyExperienceTimeline />
-        </Suspense>
-        <Suspense fallback={<SectionLoader />}>
+        </DeferredSection>
+        <DeferredSection sectionId="projects" minHeightClass="min-h-[36rem]">
           <LazyProjects />
-        </Suspense>
-        <Suspense fallback={<SectionLoader />}>
+        </DeferredSection>
+        <DeferredSection sectionId="education" minHeightClass="min-h-[32rem]">
           <LazyEducation />
-        </Suspense>
-        <Suspense fallback={<SectionLoader />}>
+        </DeferredSection>
+        <DeferredSection sectionId="hire-me" minHeightClass="min-h-[28rem]">
           <LazyHireMe />
-        </Suspense>
-        <Suspense fallback={<SectionLoader />}>
+        </DeferredSection>
+        <DeferredSection sectionId="contact" minHeightClass="min-h-[34rem]">
           <LazyContact />
-        </Suspense>
+        </DeferredSection>
       </main>
-      <Suspense fallback={<SectionLoader />}>
+      <DeferredSection sectionId="footer" rootMargin="250px 0px" minHeightClass="min-h-[12rem]">
         <LazyFooter />
-      </Suspense>
+      </DeferredSection>
     </PageContainer>
   );
 
@@ -103,13 +141,13 @@ const App = () => {
     <PageContainer>
       <Navbar darkMode={darkMode} toggleTheme={toggleTheme} />
       <main>
-        <Suspense fallback={<SectionLoader />}>
+        <Suspense fallback={<SectionLoader minHeightClass="min-h-[32rem]" />}>
           <LazyServices />
         </Suspense>
       </main>
-      <Suspense fallback={<SectionLoader />}>
+      <DeferredSection sectionId="services-footer" rootMargin="250px 0px" minHeightClass="min-h-[12rem]">
         <LazyFooter />
-      </Suspense>
+      </DeferredSection>
     </PageContainer>
   );
 

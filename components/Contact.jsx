@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { AlertTriangle, Mail, MapPin, Phone, MessageCircle, CheckCircle, Send } from 'lucide-react';
-import emailjs from '@emailjs/browser';
 import { ContactFormSkeleton } from './SkeletonLoader.jsx';
 import { EMAIL, PHONE, LOCATION } from '../constants.js';
 
@@ -18,17 +17,32 @@ const Contact = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const successTimeoutRef = useRef(null);
+  const emailJsModuleRef = useRef(null);
+  const emailJsInitializedRef = useRef(false);
 
-  // Initialize EmailJS
   useEffect(() => {
-    emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
-
     return () => {
       if (successTimeoutRef.current) {
         clearTimeout(successTimeoutRef.current);
       }
     };
   }, []);
+
+  const loadEmailJs = async (publicKey) => {
+    if (!emailJsModuleRef.current) {
+      emailJsModuleRef.current = import('@emailjs/browser');
+    }
+
+    const emailJsModule = await emailJsModuleRef.current;
+    const emailjs = emailJsModule.default;
+
+    if (!emailJsInitializedRef.current) {
+      emailjs.init(publicKey);
+      emailJsInitializedRef.current = true;
+    }
+
+    return emailjs;
+  };
 
   const handleInputChange = (e) => {
     setFormData({
@@ -78,6 +92,7 @@ const Contact = () => {
     };
 
     try {
+      const emailjs = await loadEmailJs(publicKey);
       const result = await emailjs.send(serviceID, templateID, templateParams, publicKey);
       console.log('Email sent successfully:', result);
 
@@ -148,6 +163,7 @@ const Contact = () => {
                   key={idx}
                   href={item.href}
                   target={item.title === "WhatsApp" ? "_blank" : "_self"}
+                  rel={item.title === "WhatsApp" ? "noopener noreferrer" : undefined}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.1 }}
