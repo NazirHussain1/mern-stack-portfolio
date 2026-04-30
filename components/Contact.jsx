@@ -93,8 +93,7 @@ const Contact = () => {
 
     try {
       const emailjs = await loadEmailJs(publicKey);
-      const result = await emailjs.send(serviceID, templateID, templateParams, publicKey);
-      console.log('Email sent successfully:', result);
+      await emailjs.send(serviceID, templateID, templateParams, publicKey);
 
       setIsSubmitted(true);
       setFormData({ name: '', email: '', project: '', customProject: '', message: '' });

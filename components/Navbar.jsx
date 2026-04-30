@@ -30,7 +30,7 @@ const Navbar = ({ darkMode, toggleTheme }) => {
       setScrolled(window.scrollY > 50);
       
       // Update URL hash based on scroll position
-      const sections = ['home', 'about', 'skills', 'experience', 'projects', 'hire-me', 'contact'];
+      const sections = ['home', 'about', 'skills', 'experience', 'projects', 'services', 'hire-me', 'contact'];
       for (const sectionId of sections) {
         const element = document.getElementById(sectionId);
         if (element) {
@@ -78,7 +78,7 @@ const Navbar = ({ darkMode, toggleTheme }) => {
     { name: 'Skills', hash: 'skills', isExternal: false },
     { name: 'Experience', hash: 'experience', isExternal: false },
     { name: 'Projects', hash: 'projects', isExternal: false },
-    { name: 'Services', hash: null, isExternal: true, path: '/services' },
+    { name: 'Services', hash: 'services', isExternal: false },
     { name: 'Hire Me', hash: 'hire-me', isExternal: false },
     { name: 'Contact', hash: 'contact', isExternal: false },
   ];
@@ -170,12 +170,6 @@ const Navbar = ({ darkMode, toggleTheme }) => {
               </div>
             </div>
             
-            {/* Compact Main Logo */}
-            <motion.div 
-              className="text-xl font-display font-bold text-gradient relative group-hover:scale-102 transition-all duration-200 ml-1"
-            >
-              NAZIR.
-            </motion.div>
           </div>
         </motion.button>
 

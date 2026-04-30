@@ -107,7 +107,7 @@ export const PROJECTS = [
 export const SKILLS = [
   {
     title: "Languages",
-    skills: ["JavaScript (ES6+)", "TypeScript", "HTML5", "CSS3"]
+    skills: ["JavaScript (ES6+)", "TypeScript", "Python", "HTML5", "CSS3"]
   },
   {
     title: "Frameworks & Libraries",
@@ -126,31 +126,6 @@ export const EDUCATIONS = [
     location: "Faisalabad, Pakistan",
     period: "Nov 2021 - Sep 2025"
   }
-];
-
-export const COURSEWORK = [
-  "Introduction to Computing Applications",
-  "Programming Fundamentals",
-  "Object Oriented Programming",
-  "Discrete Structures",
-  "Visual Programming",
-  "Data Structure and Algorithms",
-  "Operating Systems",
-  "Database Systems",
-  "Computer Networks",
-  "Introduction to Software Engineering",
-  "Design and Analysis of Algorithms",
-  "Software Requirements Engineering",
-  "Web Design and Development",
-  "Software Design and Architecture",
-  "Software Engineering Economics",
-  "Calculus",
-  "Data Text and Mining",
-  "Software Project Management",
-  "Software Quality Engineering",
-  "Business Process Engineering",
-  "Software Reengineering",
-  "Formal Method in Software Engineering"
 ];
 
 export const LANGUAGES_SPOKEN = ["English", "Urdu", "Saraiki (Fluent)"];

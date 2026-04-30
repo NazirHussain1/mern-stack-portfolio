@@ -10,6 +10,9 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+.vercel
+.venv
+coverage
 *.local
 
 # Environment variables

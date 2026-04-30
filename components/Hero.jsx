@@ -13,6 +13,7 @@ const Hero = () => {
   const [loopNum, setLoopNum] = useState(0);
   const [showCVDropdown, setShowCVDropdown] = useState(false);
   const [resumeExists, setResumeExists] = useState(false);
+  const [shouldLoadCanvas, setShouldLoadCanvas] = useState(false);
   const [canvasLoaded, setCanvasLoaded] = useState(false);
 
   const typingSpeed = isDeleting ? 80 : 150;
@@ -69,14 +70,40 @@ const Hero = () => {
     };
   }, []);
 
+  useEffect(() => {
+    let timeoutId = null;
+    let idleCallbackId = null;
+
+    const loadCanvasWhenReady = () => {
+      setShouldLoadCanvas(true);
+    };
+
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      idleCallbackId = window.requestIdleCallback(loadCanvasWhenReady, { timeout: 1200 });
+    } else {
+      timeoutId = window.setTimeout(loadCanvasWhenReady, 350);
+    }
+
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      if (idleCallbackId && typeof window !== 'undefined' && 'cancelIdleCallback' in window) {
+        window.cancelIdleCallback(idleCallbackId);
+      }
+    };
+  }, []);
+
   const whatsappUrl = `https://wa.me/${PHONE.replace(/\+/g, '')}`;
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      <Suspense fallback={<HeroCanvasSkeleton />}>
-        <Canvas3D onCreated={() => setCanvasLoaded(true)} />
-      </Suspense>
-      {!canvasLoaded && <HeroCanvasSkeleton />}
+      {shouldLoadCanvas && (
+        <Suspense fallback={<HeroCanvasSkeleton />}>
+          <Canvas3D onCreated={() => setCanvasLoaded(true)} />
+        </Suspense>
+      )}
+      {(!shouldLoadCanvas || !canvasLoaded) && <HeroCanvasSkeleton />}
       <div className="container relative z-20 mx-auto px-4 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -95,12 +122,12 @@ const Hero = () => {
             </p>
           </div>
           
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="mx-auto flex max-w-4xl flex-col items-stretch justify-center gap-4 sm:flex-row sm:flex-wrap sm:items-center lg:flex-nowrap">
             <motion.a
               href="#contact"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-primary text-white rounded-full font-bold shadow-lg shadow-primary/30 flex items-center gap-2 hover:bg-blue-600 transition-all no-underline"
+              className="w-full sm:w-auto min-w-[220px] px-8 py-4 bg-primary text-white rounded-full font-bold shadow-lg shadow-primary/30 flex items-center justify-center gap-2 hover:bg-blue-600 transition-all no-underline"
             >
               <Mail size={20} />
               Contact Me
@@ -111,21 +138,21 @@ const Hero = () => {
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-green-600 text-white rounded-full font-bold shadow-lg shadow-green-600/30 flex items-center gap-2 hover:bg-green-700 transition-all no-underline"
+              className="w-full sm:w-auto min-w-[220px] px-8 py-4 bg-green-600 text-white rounded-full font-bold shadow-lg shadow-green-600/30 flex items-center justify-center gap-2 hover:bg-green-700 transition-all no-underline"
             >
               <MessageCircle size={20} />
               WhatsApp Me
             </motion.a>
             
            
-            <div className="relative">
+            <div className="relative w-full sm:w-auto">
               {resumeExists ? (
               <div className="relative">
                 <motion.button
                   onClick={() => setShowCVDropdown(!showCVDropdown)}
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-full font-bold shadow-lg shadow-emerald-500/30 flex items-center gap-2 hover:shadow-xl hover:shadow-emerald-500/40 transition-all no-underline group"
+                  className="w-full sm:w-auto min-w-[220px] px-8 py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-full font-bold shadow-lg shadow-emerald-500/30 flex items-center justify-center gap-2 hover:shadow-xl hover:shadow-emerald-500/40 transition-all no-underline group"
                 >
                   <Download size={20} className="group-hover:animate-bounce" />
                   Resume/CV
@@ -145,7 +172,7 @@ const Hero = () => {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -10, scale: 0.95 }}
                         transition={{ duration: 0.2 }}
-                        className="absolute top-full mt-3 left-1/2 transform -translate-x-1/2 w-56 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden z-[101] backdrop-blur-xl"
+                        className="absolute top-full mt-3 left-1/2 w-full min-w-[220px] -translate-x-1/2 sm:w-64 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden z-[101] backdrop-blur-xl"
                       >
                         <div className="px-6 py-3 bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 border-b border-slate-200 dark:border-slate-700">
                           <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 tracking-widest uppercase">Resume Options</p>
@@ -184,7 +211,7 @@ const Hero = () => {
             ) : (
               <motion.div 
                 whileHover={{ scale: 1.02 }}
-                className="px-8 py-4 rounded-full border-2 border-dashed border-slate-300 dark:border-slate-600 bg-slate-50/50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-300 font-semibold flex items-center gap-2 backdrop-blur-sm"
+                className="w-full sm:w-auto min-w-[220px] px-8 py-4 rounded-full border-2 border-dashed border-slate-300 dark:border-slate-600 bg-slate-50/50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-300 font-semibold flex items-center justify-center gap-2 backdrop-blur-sm"
               >
                 <AlertCircle size={18} className="text-slate-400" />
                 Coming Soon

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, lazy, Suspense, useRef } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from './components/Navbar.jsx';
 import Hero from './components/Hero.jsx';
@@ -121,6 +121,9 @@ const App = () => {
         <DeferredSection sectionId="projects" minHeightClass="min-h-[36rem]">
           <LazyProjects />
         </DeferredSection>
+        <DeferredSection sectionId="services" minHeightClass="min-h-[34rem]">
+          <LazyServices />
+        </DeferredSection>
         <DeferredSection sectionId="education" minHeightClass="min-h-[32rem]">
           <LazyEducation />
         </DeferredSection>
@@ -137,27 +140,13 @@ const App = () => {
     </PageContainer>
   );
 
-  const ServicesLayout = () => (
-    <PageContainer>
-      <Navbar darkMode={darkMode} toggleTheme={toggleTheme} />
-      <main>
-        <Suspense fallback={<SectionLoader minHeightClass="min-h-[32rem]" />}>
-          <LazyServices />
-        </Suspense>
-      </main>
-      <DeferredSection sectionId="services-footer" rootMargin="250px 0px" minHeightClass="min-h-[12rem]">
-        <LazyFooter />
-      </DeferredSection>
-    </PageContainer>
-  );
-
   const RouteContainer = () => {
     const location = useLocation();
 
     return (
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
-          <Route path="/services" element={<ServicesLayout />} />
+          <Route path="/services" element={<Navigate to={{ pathname: '/', hash: '#services' }} replace />} />
           <Route path="/" element={<MainLayout />} />
           <Route path="*" element={<MainLayout />} />
         </Routes>
