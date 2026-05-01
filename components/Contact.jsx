@@ -6,6 +6,7 @@ import { EMAIL, PHONE, LOCATION } from '../constants.js';
 
 const Contact = () => {
   const whatsappUrl = `https://wa.me/${PHONE.replace(/\+/g, '')}`;
+  const locationUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(LOCATION)}`;
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -156,13 +157,13 @@ const Contact = () => {
                 { icon: <Mail />, title: "Email", value: EMAIL, href: `mailto:${EMAIL}` },
                 { icon: <Phone />, title: "Phone", value: PHONE, href: `tel:${PHONE.replace(/\D/g,'')}` },
                 { icon: <MessageCircle />, title: "WhatsApp", value: "Chat on WhatsApp", href: whatsappUrl },
-                { icon: <MapPin />, title: "Location", value: LOCATION, href: "#" }
+                { icon: <MapPin />, title: "Location", value: LOCATION, href: locationUrl }
               ].map((item, idx) => (
                 <motion.a
                   key={idx}
                   href={item.href}
-                  target={item.title === "WhatsApp" ? "_blank" : "_self"}
-                  rel={item.title === "WhatsApp" ? "noopener noreferrer" : undefined}
+                  target={item.title === "Email" || item.title === "Phone" ? "_self" : "_blank"}
+                  rel={item.title === "Email" || item.title === "Phone" ? undefined : "noopener noreferrer"}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.1 }}
