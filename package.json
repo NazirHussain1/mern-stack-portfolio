@@ -1,8 +1,12 @@
 {
   "name": "nazir-hussain-portfolio",
+  "description": "Personal portfolio website for Nazir Hussain built with React, Vite, Framer Motion, and React Three Fiber.",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -20,7 +24,7 @@
     "three": "^0.182.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^5.0.0",
-    "vite": "^6.2.0"
+    "@vitejs/plugin-react": "^6.0.1",
+    "vite": "^8.0.10"
   }
 }
