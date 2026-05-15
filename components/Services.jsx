@@ -28,7 +28,7 @@ const services = [
     icon: Layers,
     title: 'Full Stack Development',
     description: 'Deliver end-to-end solutions from frontend experience to backend workflows and deployment pipelines.',
-    stack: ['MERN Stack', 'API Design', 'Deployment', 'Testing'],
+    stack: ['React', 'Node.js', 'API Design', 'Deployment'],
   },
   {
     icon: Cloud,

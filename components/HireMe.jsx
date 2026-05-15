@@ -10,7 +10,7 @@ const HireMe = () => {
     {
       icon: <Code size={24} />,
       title: 'Full Stack Development',
-      description: 'Complete web applications using the MERN stack with modern UI and UX.',
+      description: 'Complete web applications with modern frontend, backend APIs, databases, and polished UX.',
     },
     {
       icon: <Briefcase size={24} />,
@@ -30,7 +30,7 @@ const HireMe = () => {
   ];
 
   const benefits = [
-    'Experienced in MERN stack development',
+    'Experienced in full-stack web application development',
     'Strong problem-solving and debugging skills',
     'Responsive and mobile-first design approach',
     'API integration and database optimization',
@@ -50,8 +50,8 @@ const HireMe = () => {
               Ready to <span className="text-primary">Hire Me?</span>
             </h2>
             <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-              Let&apos;s work together to bring your ideas to life. I&apos;m available for MERN stack development,
-              frontend engineering, and full-stack web services from anywhere in the world.
+              Let&apos;s work together to bring your ideas to life. I&apos;m available for full-stack development,
+              frontend engineering, backend APIs, and web services from anywhere in the world.
             </p>
           </motion.div>
         </div>
@@ -151,7 +151,7 @@ const HireMe = () => {
 
             <div className="mt-8 pt-8 border-t border-slate-200 dark:border-slate-800">
               <p className="text-sm text-slate-500 dark:text-slate-400">
-                <strong>Available for:</strong> MERN Stack Development | Web Applications | API Development | Database
+                <strong>Available for:</strong> Full Stack Development | Web Applications | API Development | Database
                 Design | Full-Stack Solutions
               </p>
             </div>

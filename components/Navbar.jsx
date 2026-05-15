@@ -155,7 +155,7 @@ const Navbar = ({ darkMode, toggleTheme }) => {
           animate={{ opacity: 1, x: 0 }}
           className="flex items-center cursor-pointer group bg-transparent border-0 p-0"
         >
-          {/* Compact MERN Stack Logo */}
+          {/* Compact Full Stack Logo */}
           <div className="flex items-center gap-2">
             <div className="relative">
               {/* Glow effect background */}
@@ -163,14 +163,14 @@ const Navbar = ({ darkMode, toggleTheme }) => {
 
               {/* Main container - smaller and more compact */}
               <div className="relative flex items-center gap-1 px-2 py-1.5 bg-gradient-to-r from-white/90 via-slate-50/90 to-white/90 dark:from-slate-800/90 dark:via-slate-700/90 dark:to-slate-800/90 backdrop-blur-xl rounded-lg shadow-md border border-white/20 dark:border-slate-600/30 group-hover:shadow-lg group-hover:border-primary/30 transition-all duration-300">
-                {/* MERN Letters - smaller size */}
+                {/* Full Stack initials */}
                 <motion.div
                   className="w-5 h-5 bg-gradient-to-br from-emerald-400 via-green-500 to-emerald-600 rounded-md flex items-center justify-center shadow-sm relative overflow-hidden group-hover:shadow-emerald-500/25 transition-all duration-200"
                   whileHover={{ scale: 1.05 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 10 }}
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
-                  <span className="text-white text-xs font-bold relative z-10">M</span>
+                  <span className="text-white text-xs font-bold relative z-10">F</span>
                 </motion.div>
 
                 <motion.div
@@ -179,7 +179,7 @@ const Navbar = ({ darkMode, toggleTheme }) => {
                   transition={{ type: 'spring', stiffness: 400, damping: 10, delay: 0.02 }}
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
-                  <span className="text-white text-xs font-bold relative z-10">E</span>
+                  <span className="text-white text-xs font-bold relative z-10">U</span>
                 </motion.div>
 
                 <motion.div
@@ -188,7 +188,7 @@ const Navbar = ({ darkMode, toggleTheme }) => {
                   transition={{ type: 'spring', stiffness: 400, damping: 10, delay: 0.04 }}
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
-                  <span className="text-white text-xs font-bold relative z-10">R</span>
+                  <span className="text-white text-xs font-bold relative z-10">L</span>
                 </motion.div>
 
                 <motion.div
@@ -197,7 +197,7 @@ const Navbar = ({ darkMode, toggleTheme }) => {
                   transition={{ type: 'spring', stiffness: 400, damping: 10, delay: 0.06 }}
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
-                  <span className="text-white text-xs font-bold relative z-10">N</span>
+                  <span className="text-white text-xs font-bold relative z-10">L</span>
                 </motion.div>
               </div>
             </div>

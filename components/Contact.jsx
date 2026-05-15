@@ -314,7 +314,7 @@ const Contact = () => {
                       <option value="Full Stack Web Application">Full Stack Web Application</option>
                       <option value="Frontend Development">Frontend Development</option>
                       <option value="Backend API Development">Backend API Development</option>
-                      <option value="MERN Stack Project">MERN Stack Project</option>
+                      <option value="Full Stack Project">Full Stack Project</option>
                       <option value="E-commerce Website">E-commerce Website</option>
                       <option value="Business Website">Business Website</option>
                       <option value="Portfolio Website">Portfolio Website</option>

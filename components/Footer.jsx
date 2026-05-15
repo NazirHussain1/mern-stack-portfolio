@@ -1,9 +1,11 @@
 import React from 'react';
-import { Linkedin, Github, Facebook, Heart } from 'lucide-react';
+import { Linkedin, Github, Facebook, Heart, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { NAME, LINKEDIN, GITHUB } from '../constants.js';
+import { NAME, LINKEDIN, GITHUB, PHONE } from '../constants.js';
 
 const Footer = () => {
+  const whatsappUrl = `https://wa.me/${PHONE.replace(/\+/g, '')}`;
+
   return (
     <footer className="py-12 bg-white dark:bg-dark border-t border-slate-200 dark:border-slate-800">
       <div className="container mx-auto px-4">
@@ -20,7 +22,7 @@ const Footer = () => {
                     transition={{ type: 'spring', stiffness: 400, damping: 10 }}
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
-                    <span className="text-white text-sm font-bold relative z-10">M</span>
+                    <span className="text-white text-sm font-bold relative z-10">F</span>
                   </motion.div>
 
                   <motion.div
@@ -29,7 +31,7 @@ const Footer = () => {
                     transition={{ type: 'spring', stiffness: 400, damping: 10, delay: 0.05 }}
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
-                    <span className="text-white text-sm font-bold relative z-10">E</span>
+                    <span className="text-white text-sm font-bold relative z-10">U</span>
                   </motion.div>
 
                   <motion.div
@@ -38,7 +40,7 @@ const Footer = () => {
                     transition={{ type: 'spring', stiffness: 400, damping: 10, delay: 0.1 }}
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
-                    <span className="text-white text-sm font-bold relative z-10">R</span>
+                    <span className="text-white text-sm font-bold relative z-10">L</span>
                   </motion.div>
 
                   <motion.div
@@ -47,7 +49,7 @@ const Footer = () => {
                     transition={{ type: 'spring', stiffness: 400, damping: 10, delay: 0.15 }}
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
-                    <span className="text-white text-sm font-bold relative z-10">N</span>
+                    <span className="text-white text-sm font-bold relative z-10">L</span>
                   </motion.div>
                 </div>
               </div>
@@ -82,7 +84,7 @@ const Footer = () => {
                 <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-cyan-500 group-hover:w-full transition-all duration-500"></div>
               </span>
             </motion.div>
-            <p className="text-slate-500 dark:text-slate-400 mt-2">Building scalable web solutions with MERN stack</p>
+            <p className="text-slate-500 dark:text-slate-400 mt-2">Building scalable full-stack web solutions</p>
           </div>
 
           <div className="flex items-center space-x-6">
@@ -112,6 +114,15 @@ const Footer = () => {
               className="p-3 rounded-xl glass hover:text-primary transition-colors text-slate-600 dark:text-slate-400"
             >
               <Facebook size={20} />
+            </a>
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Chat with Nazir Hussain on WhatsApp"
+              className="p-3 rounded-xl glass hover:text-green-500 transition-colors text-slate-600 dark:text-slate-400"
+            >
+              <MessageCircle size={20} />
             </a>
           </div>
         </div>

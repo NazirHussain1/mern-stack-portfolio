@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useEffect, lazy, Suspense, useRef } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Download, Mail, ArrowDown, MessageCircle, Eye, ChevronDown, AlertCircle } from 'lucide-react';
 const Canvas3D = lazy(() => import('./Canvas3D.jsx'));
@@ -6,7 +6,7 @@ import { HeroCanvasSkeleton } from './SkeletonLoader.jsx';
 import { NAME, PHONE, RESUME_PATH } from '../constants.js';
 
 const typedWords = [
-  'MERN Stack Developer',
+  'Full Stack Developer',
   'React & Node.js Developer',
   'API Integration Specialist',
   'Full Stack Engineer',
@@ -17,9 +17,11 @@ const Hero = () => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
   const [showCVDropdown, setShowCVDropdown] = useState(false);
+  const [cvDropdownDirection, setCVDropdownDirection] = useState('down');
   const [resumeExists, setResumeExists] = useState(false);
   const [shouldLoadCanvas, setShouldLoadCanvas] = useState(false);
   const [canvasLoaded, setCanvasLoaded] = useState(false);
+  const cvButtonRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
 
   const typingSpeed = isDeleting ? 80 : 150;
@@ -109,6 +111,18 @@ const Hero = () => {
 
   const whatsappUrl = `https://wa.me/${PHONE.replace(/\+/g, '')}`;
 
+  const handleResumeToggle = () => {
+    if (!showCVDropdown && cvButtonRef.current) {
+      const rect = cvButtonRef.current.getBoundingClientRect();
+      const dropdownHeight = 190;
+      const spaceBelow = window.innerHeight - rect.bottom;
+      const spaceAbove = rect.top;
+      setCVDropdownDirection(spaceBelow < dropdownHeight && spaceAbove > spaceBelow ? 'up' : 'down');
+    }
+
+    setShowCVDropdown((prev) => !prev);
+  };
+
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {!prefersReducedMotion && shouldLoadCanvas && (
@@ -120,7 +134,7 @@ const Hero = () => {
       <div className="container relative z-20 mx-auto px-4 text-center">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
           <span className="inline-block py-1 px-3 mb-4 rounded-full bg-primary/10 text-primary font-semibold text-sm tracking-widest uppercase">
-            Available for MERN Stack Development & Web Services
+            Available for Full Stack Development & Web Services
           </span>
           <h1 className="text-5xl md:text-8xl font-display font-extrabold mb-6 tracking-tight">
             <span className="text-gradient">{NAME}</span>
@@ -157,7 +171,8 @@ const Hero = () => {
               {resumeExists ? (
                 <div className="relative">
                   <motion.button
-                    onClick={() => setShowCVDropdown(!showCVDropdown)}
+                    ref={cvButtonRef}
+                    onClick={handleResumeToggle}
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
                     className="w-full sm:w-auto min-w-[220px] px-8 py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-full font-bold shadow-lg shadow-emerald-500/30 flex items-center justify-center gap-2 hover:shadow-xl hover:shadow-emerald-500/40 transition-all no-underline group"
@@ -181,11 +196,13 @@ const Hero = () => {
                         />
 
                         <motion.div
-                          initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                          initial={{ opacity: 0, y: cvDropdownDirection === 'up' ? 10 : -10, scale: 0.95 }}
                           animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                          exit={{ opacity: 0, y: cvDropdownDirection === 'up' ? 10 : -10, scale: 0.95 }}
                           transition={{ duration: 0.2 }}
-                          className="absolute top-full mt-3 left-1/2 w-full min-w-[220px] -translate-x-1/2 sm:w-64 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden z-[101] backdrop-blur-xl"
+                          className={`absolute left-1/2 w-full min-w-[220px] -translate-x-1/2 sm:w-64 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden z-[101] backdrop-blur-xl ${
+                            cvDropdownDirection === 'up' ? 'bottom-full mb-3' : 'top-full mt-3'
+                          }`}
                         >
                           <div className="px-6 py-3 bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 border-b border-slate-200 dark:border-slate-700">
                             <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 tracking-widest uppercase">

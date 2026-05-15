@@ -1,5 +1,5 @@
 export const NAME = 'Nazir Hussain';
-export const ROLE = 'MERN Stack Developer';
+export const ROLE = 'Full Stack Developer';
 export const LOCATION = 'Lahore, Pakistan';
 export const EMAIL = 'nh534392@gmail.com';
 export const LINKEDIN = 'linkedin.com/in/nazirsoftwareengr';
@@ -9,23 +9,23 @@ export const RESUME_PATH = '/Nazir-Resume.pdf';
 export const SITE_URL = import.meta.env.VITE_SITE_URL || 'https://nazir-hussain-portfolio.vercel.app';
 
 export const SUMMARY =
-  'MERN stack developer in Lahore, Pakistan focused on building responsive, full-stack web applications with React.js, Next.js, Node.js, Express.js, and MongoDB. I enjoy turning complex requirements into clean user experiences and reliable backend systems. From business websites to dynamic, database-driven products, I have worked across UI design, API integration, authentication, and deployment. I am currently open to internships, freelance projects, and growth-oriented software engineering opportunities.';
+  'Full stack developer in Lahore, Pakistan focused on building responsive web applications with React.js, Next.js, Node.js, Express.js, MongoDB, and SQL databases. I enjoy turning complex requirements into clean user experiences and reliable backend systems. From business websites to dynamic, database-driven products, I have worked across UI design, REST API integration, authentication, dashboards, and deployment. I am currently open to internships, freelance projects, and growth-oriented software engineering opportunities.';
 
 export const EXPERIENCES = [
   {
-    role: 'MERN Stack Developer Intern',
+    role: 'Associate Software Engineer',
     company: 'RankSol',
     location: 'Faisalabad, Pakistan (On-site)',
     period: 'Oct 2025 - Dec 2025',
     achievements: [
-      'Worked as a MERN Stack Developer Intern (frontend-focused), developing modern, responsive web applications using React.js and Next.js.',
-      'Built authentication pages, dashboards, and CRUD modules.',
-      'Integrated REST APIs and managed application state using Redux Toolkit.',
-      'Implemented JWT authentication and created clean UI using Tailwind CSS.',
+      'Contributed as an Associate Software Engineer on responsive web application features using React.js, Next.js, and Tailwind CSS.',
+      'Built authentication screens, dashboard interfaces, reusable components, and CRUD workflows for production-style modules.',
+      'Integrated REST APIs, handled client-side state with Redux Toolkit, and improved form flows for better user experience.',
+      'Collaborated on debugging, UI polish, and frontend performance improvements across full-stack application workflows.',
     ],
   },
   {
-    role: 'MERN Stack Developer',
+    role: 'Full Stack Developer',
     company: 'Gamica Cloud',
     location: 'Faisalabad, Pakistan (On-site)',
     period: 'Aug 2025 - Nov 2025',
@@ -84,7 +84,7 @@ export const PROJECTS = [
     tech: ['MongoDB', 'Express.js', 'React.js', 'Node.js'],
     description: [
       'Built a web platform connecting clients with advocates through OTP-verified registration and appointment management.',
-      'Designed the product on the MERN stack with a focus on scalability and security.',
+      'Designed the product as a full-stack application with a focus on scalability and security.',
     ],
     links: {
       github: 'https://github.com/NazirHussain1',
@@ -94,9 +94,9 @@ export const PROJECTS = [
   {
     title: 'Skill Match - Job Matching Platform',
     period: 'Nov 2025 - Dec 2025',
-    tech: ['React.js', 'Tailwind CSS', 'MERN Stack'],
+    tech: ['React.js', 'Tailwind CSS', 'Node.js', 'Express.js', 'MongoDB'],
     description: [
-      'Developed a platform using the MERN stack to connect job seekers with employers based on skills.',
+      'Developed a full-stack platform to connect job seekers with employers based on skills.',
       'Implemented role-based dashboards and profile management.',
     ],
     links: {
@@ -127,7 +127,7 @@ export const SKILLS = [
   },
   {
     title: 'Databases & Tools',
-    skills: ['MongoDB (Expert)', 'MySQL', 'PostgreSQL', 'REST APIs', 'JWT', 'GitHub', 'Vercel'],
+    skills: ['MongoDB', 'MySQL', 'PostgreSQL', 'REST APIs', 'JWT', 'GitHub', 'Vercel'],
   },
 ];
 
@@ -140,4 +140,4 @@ export const EDUCATIONS = [
   },
 ];
 
-export const LANGUAGES_SPOKEN = ['English', 'Urdu', 'Saraiki (Fluent)'];
+export const LANGUAGES_SPOKEN = ['English', 'Urdu'];
