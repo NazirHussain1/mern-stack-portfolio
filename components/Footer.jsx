@@ -1,7 +1,8 @@
 import React from 'react';
-import { Linkedin, Github, Facebook, Heart, MessageCircle } from 'lucide-react';
+import { Linkedin, Github, Facebook, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { NAME, LINKEDIN, GITHUB, PHONE } from '../constants.js';
+import WhatsAppIcon from './WhatsAppIcon.jsx';
 
 const Footer = () => {
   const whatsappUrl = `https://wa.me/${PHONE.replace(/\+/g, '')}`;
@@ -122,7 +123,7 @@ const Footer = () => {
               aria-label="Chat with Nazir Hussain on WhatsApp"
               className="p-3 rounded-xl glass hover:text-green-500 transition-colors text-slate-600 dark:text-slate-400"
             >
-              <MessageCircle size={20} />
+              <WhatsAppIcon size={21} />
             </a>
           </div>
         </div>

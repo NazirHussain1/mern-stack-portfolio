@@ -1,9 +1,10 @@
 import React, { useState, useEffect, lazy, Suspense, useRef } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import { Download, Mail, ArrowDown, MessageCircle, Eye, ChevronDown, AlertCircle } from 'lucide-react';
+import { Download, Mail, ArrowDown, Eye, ChevronDown, AlertCircle } from 'lucide-react';
 const Canvas3D = lazy(() => import('./Canvas3D.jsx'));
 import { HeroCanvasSkeleton } from './SkeletonLoader.jsx';
 import { NAME, PHONE, RESUME_PATH } from '../constants.js';
+import WhatsAppIcon from './WhatsAppIcon.jsx';
 
 const typedWords = [
   'Full Stack Developer',
@@ -163,7 +164,7 @@ const Hero = () => {
               whileTap={{ scale: 0.95 }}
               className="w-full sm:w-auto min-w-[220px] px-8 py-4 bg-green-600 text-white rounded-full font-bold shadow-lg shadow-green-600/30 flex items-center justify-center gap-2 hover:bg-green-700 transition-all no-underline"
             >
-              <MessageCircle size={20} />
+              <WhatsAppIcon size={21} />
               WhatsApp Me
             </motion.a>
 

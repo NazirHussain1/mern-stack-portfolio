@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { AlertTriangle, Mail, MapPin, Phone, MessageCircle, CheckCircle, Send } from 'lucide-react';
+import { AlertTriangle, Mail, MapPin, Phone, CheckCircle, Send } from 'lucide-react';
 import { ContactFormSkeleton } from './SkeletonLoader.jsx';
 import { EMAIL, PHONE, LOCATION } from '../constants.js';
+import WhatsAppIcon from './WhatsAppIcon.jsx';
 
 const Contact = () => {
   const whatsappUrl = `https://wa.me/${PHONE.replace(/\+/g, '')}`;
@@ -161,7 +162,7 @@ const Contact = () => {
               {[
                 { icon: <Mail />, title: 'Email', value: EMAIL, href: `mailto:${EMAIL}` },
                 { icon: <Phone />, title: 'Phone', value: PHONE, href: `tel:${PHONE.replace(/\D/g, '')}` },
-                { icon: <MessageCircle />, title: 'WhatsApp', value: 'Chat on WhatsApp', href: whatsappUrl },
+                { icon: <WhatsAppIcon size={24} />, title: 'WhatsApp', value: 'Chat on WhatsApp', href: whatsappUrl },
                 { icon: <MapPin />, title: 'Location', value: LOCATION, href: locationUrl },
               ].map((item, idx) => (
                 <motion.a
