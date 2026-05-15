@@ -112,6 +112,15 @@ const Hero = () => {
 
   const whatsappUrl = `https://wa.me/${PHONE.replace(/\+/g, '')}`;
 
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (!element) return;
+
+    const headerOffset = 100;
+    const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+    window.scrollTo({ top: elementPosition - headerOffset, behavior: 'smooth' });
+  };
+
   const handleResumeToggle = () => {
     if (!showCVDropdown && cvButtonRef.current) {
       const rect = cvButtonRef.current.getBoundingClientRect();
@@ -147,15 +156,16 @@ const Hero = () => {
           </div>
 
           <div className="mx-auto flex max-w-4xl flex-col items-stretch justify-center gap-4 sm:flex-row sm:flex-wrap sm:items-center lg:flex-nowrap">
-            <motion.a
-              href="#contact"
+            <motion.button
+              type="button"
+              onClick={() => scrollToSection('contact')}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="w-full sm:w-auto min-w-[220px] px-8 py-4 bg-primary text-white rounded-full font-bold shadow-lg shadow-primary/30 flex items-center justify-center gap-2 hover:bg-blue-600 transition-all no-underline"
             >
               <Mail size={20} />
               Contact Me
-            </motion.a>
+            </motion.button>
             <motion.a
               href={whatsappUrl}
               target="_blank"
@@ -259,9 +269,9 @@ const Hero = () => {
           transition={{ repeat: Infinity, duration: 2 }}
           className="absolute bottom-10 left-1/2 -translate-x-1/2 text-slate-400"
         >
-          <a href="#about" className="text-inherit">
+          <button type="button" onClick={() => scrollToSection('about')} className="text-inherit">
             <ArrowDown size={30} />
-          </a>
+          </button>
         </motion.div>
       </div>
     </section>

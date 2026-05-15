@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Sun, Moon, Menu, X } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import BrandMark from './BrandMark.jsx';
 
 const Navbar = ({ darkMode, toggleTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const navigate = useNavigate();
+  const location = useLocation();
 
   const scrollToSection = (sectionId, shouldSmoothScroll = true) => {
     const element = document.getElementById(sectionId);
@@ -29,7 +31,6 @@ const Navbar = ({ darkMode, toggleTheme }) => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
 
-      // Update URL hash based on scroll position
       const sections = [
         'home',
         'about',
@@ -48,10 +49,6 @@ const Navbar = ({ darkMode, toggleTheme }) => {
           const rect = element.getBoundingClientRect();
           if (rect.top <= 200 && rect.bottom >= 200) {
             setActiveSection(sectionId);
-            // Update URL without reloading
-            if (window.location.hash !== `#${sectionId}`) {
-              window.history.replaceState(null, '', `#${sectionId}`);
-            }
             break;
           }
         }
@@ -85,7 +82,10 @@ const Navbar = ({ darkMode, toggleTheme }) => {
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.slice(1) || 'home';
-      scrollToSection(hash);
+      if (hash) {
+        scrollToSection(hash);
+        window.history.replaceState(window.history.state, '', window.location.pathname || '/');
+      }
     };
 
     window.addEventListener('hashchange', handleHashChange);
@@ -96,6 +96,7 @@ const Navbar = ({ darkMode, toggleTheme }) => {
     if (initialHash !== 'home') {
       window.requestAnimationFrame(() => {
         scrollToSection(initialHash, false);
+        window.history.replaceState(window.history.state, '', window.location.pathname || '/');
       });
     }
 
@@ -124,15 +125,13 @@ const Navbar = ({ darkMode, toggleTheme }) => {
     }
 
     if (window.location.pathname !== '/') {
-      navigate({ pathname: '/', hash: `#${link.hash}` });
+      navigate('/', { state: { scrollTo: link.hash } });
       return;
     }
 
     const scrolledToSection = scrollToSection(link.hash);
-    if (scrolledToSection) {
-      window.history.replaceState(null, '', `#${link.hash}`);
-    } else {
-      window.location.hash = link.hash;
+    if (!scrolledToSection && location.pathname !== '/') {
+      navigate('/', { state: { scrollTo: link.hash } });
     }
   };
 
@@ -157,53 +156,7 @@ const Navbar = ({ darkMode, toggleTheme }) => {
           animate={{ opacity: 1, x: 0 }}
           className="flex items-center cursor-pointer group bg-transparent border-0 p-0"
         >
-          {/* Compact Full Stack Logo */}
-          <div className="flex items-center gap-2">
-            <div className="relative">
-              {/* Glow effect background */}
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-cyan-500/20 to-green-500/20 rounded-lg blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-              {/* Main container - smaller and more compact */}
-              <div className="relative flex items-center gap-1 px-2 py-1.5 bg-gradient-to-r from-white/90 via-slate-50/90 to-white/90 dark:from-slate-800/90 dark:via-slate-700/90 dark:to-slate-800/90 backdrop-blur-xl rounded-lg shadow-md border border-white/20 dark:border-slate-600/30 group-hover:shadow-lg group-hover:border-primary/30 transition-all duration-300">
-                {/* Full Stack initials */}
-                <motion.div
-                  className="w-5 h-5 bg-gradient-to-br from-emerald-400 via-green-500 to-emerald-600 rounded-md flex items-center justify-center shadow-sm relative overflow-hidden group-hover:shadow-emerald-500/25 transition-all duration-200"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
-                  <span className="text-white text-xs font-bold relative z-10">F</span>
-                </motion.div>
-
-                <motion.div
-                  className="w-5 h-5 bg-gradient-to-br from-slate-600 via-gray-700 to-slate-800 rounded-md flex items-center justify-center shadow-sm relative overflow-hidden group-hover:shadow-slate-500/25 transition-all duration-200"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 10, delay: 0.02 }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
-                  <span className="text-white text-xs font-bold relative z-10">U</span>
-                </motion.div>
-
-                <motion.div
-                  className="w-5 h-5 bg-gradient-to-br from-cyan-400 via-blue-500 to-indigo-600 rounded-md flex items-center justify-center shadow-sm relative overflow-hidden group-hover:shadow-cyan-500/25 transition-all duration-200"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 10, delay: 0.04 }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
-                  <span className="text-white text-xs font-bold relative z-10">L</span>
-                </motion.div>
-
-                <motion.div
-                  className="w-5 h-5 bg-gradient-to-br from-green-500 via-emerald-600 to-teal-700 rounded-md flex items-center justify-center shadow-sm relative overflow-hidden group-hover:shadow-green-500/25 transition-all duration-200"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 10, delay: 0.06 }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
-                  <span className="text-white text-xs font-bold relative z-10">L</span>
-                </motion.div>
-              </div>
-            </div>
-          </div>
+          <BrandMark />
         </motion.button>
 
         {/* Desktop Nav */}

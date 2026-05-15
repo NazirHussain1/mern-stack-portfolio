@@ -1,5 +1,5 @@
 import React, { useState, useEffect, lazy, Suspense, useRef } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from './components/Navbar.jsx';
 import Hero from './components/Hero.jsx';
@@ -106,44 +106,76 @@ const App = () => {
     </motion.div>
   );
 
-  const MainLayout = () => (
-    <PageContainer>
-      <Navbar darkMode={darkMode} toggleTheme={toggleTheme} />
-      <main>
-        <Hero />
-        <DeferredSection sectionId="about" minHeightClass="min-h-[32rem]">
-          <LazyAbout />
+  const MainLayout = () => {
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      const sectionId = location.state?.scrollTo;
+      if (!sectionId) return undefined;
+
+      const animationFrame = window.requestAnimationFrame(() => {
+        const element = document.getElementById(sectionId);
+        if (!element) return;
+
+        const headerOffset = 100;
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({ top: elementPosition - headerOffset, behavior: 'smooth' });
+        navigate('/', { replace: true, state: null });
+      });
+
+      return () => window.cancelAnimationFrame(animationFrame);
+    }, [location.state, navigate]);
+
+    return (
+      <PageContainer>
+        <Navbar darkMode={darkMode} toggleTheme={toggleTheme} />
+        <main>
+          <Hero />
+          <DeferredSection sectionId="about" minHeightClass="min-h-[32rem]">
+            <LazyAbout />
+          </DeferredSection>
+          <DeferredSection sectionId="skills" minHeightClass="min-h-[28rem]">
+            <LazySkills />
+          </DeferredSection>
+          <DeferredSection sectionId="experience" minHeightClass="min-h-[32rem]">
+            <LazyExperienceTimeline />
+          </DeferredSection>
+          <DeferredSection sectionId="projects" minHeightClass="min-h-[36rem]">
+            <LazyProjects />
+          </DeferredSection>
+          <DeferredSection sectionId="proof" minHeightClass="min-h-[34rem]">
+            <LazyCredibility />
+          </DeferredSection>
+          <DeferredSection sectionId="services" minHeightClass="min-h-[34rem]">
+            <LazyServices />
+          </DeferredSection>
+          <DeferredSection sectionId="education" minHeightClass="min-h-[32rem]">
+            <LazyEducation />
+          </DeferredSection>
+          <DeferredSection sectionId="hire-me" minHeightClass="min-h-[28rem]">
+            <LazyHireMe />
+          </DeferredSection>
+          <DeferredSection sectionId="contact" minHeightClass="min-h-[34rem]">
+            <LazyContact />
+          </DeferredSection>
+        </main>
+        <DeferredSection sectionId="footer" rootMargin="250px 0px" minHeightClass="min-h-[12rem]">
+          <LazyFooter />
         </DeferredSection>
-        <DeferredSection sectionId="skills" minHeightClass="min-h-[28rem]">
-          <LazySkills />
-        </DeferredSection>
-        <DeferredSection sectionId="experience" minHeightClass="min-h-[32rem]">
-          <LazyExperienceTimeline />
-        </DeferredSection>
-        <DeferredSection sectionId="projects" minHeightClass="min-h-[36rem]">
-          <LazyProjects />
-        </DeferredSection>
-        <DeferredSection sectionId="proof" minHeightClass="min-h-[34rem]">
-          <LazyCredibility />
-        </DeferredSection>
-        <DeferredSection sectionId="services" minHeightClass="min-h-[34rem]">
-          <LazyServices />
-        </DeferredSection>
-        <DeferredSection sectionId="education" minHeightClass="min-h-[32rem]">
-          <LazyEducation />
-        </DeferredSection>
-        <DeferredSection sectionId="hire-me" minHeightClass="min-h-[28rem]">
-          <LazyHireMe />
-        </DeferredSection>
-        <DeferredSection sectionId="contact" minHeightClass="min-h-[34rem]">
-          <LazyContact />
-        </DeferredSection>
-      </main>
-      <DeferredSection sectionId="footer" rootMargin="250px 0px" minHeightClass="min-h-[12rem]">
-        <LazyFooter />
-      </DeferredSection>
-    </PageContainer>
-  );
+      </PageContainer>
+    );
+  };
+
+  const ServicesRedirect = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      navigate('/', { replace: true, state: { scrollTo: 'services' } });
+    }, [navigate]);
+
+    return <SectionLoader minHeightClass="min-h-screen" />;
+  };
 
   const NotFound = () => (
     <PageContainer>
@@ -173,7 +205,7 @@ const App = () => {
     return (
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
-          <Route path="/services" element={<Navigate to={{ pathname: '/', hash: '#services' }} replace />} />
+          <Route path="/services" element={<ServicesRedirect />} />
           <Route path="/" element={<MainLayout />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

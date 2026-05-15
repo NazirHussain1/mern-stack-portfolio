@@ -46,6 +46,15 @@ const services = [
 ];
 
 const Services = () => {
+  const scrollToContact = () => {
+    const element = document.getElementById('contact');
+    if (!element) return;
+
+    const headerOffset = 100;
+    const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+    window.scrollTo({ top: elementPosition - headerOffset, behavior: 'smooth' });
+  };
+
   return (
     <section
       id="services"
@@ -106,20 +115,22 @@ const Services = () => {
             </div>
 
             <div className="flex flex-col gap-4 sm:flex-row">
-              <a
-                href="#contact"
+              <button
+                type="button"
+                onClick={scrollToContact}
                 aria-label="Hire me or contact Nazir"
                 className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-primary to-blue-500 px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition transform hover:-translate-y-0.5 hover:shadow-blue-500/30"
               >
                 Hire Me
-              </a>
-              <a
-                href="#contact"
+              </button>
+              <button
+                type="button"
+                onClick={scrollToContact}
                 aria-label="View contact details"
                 className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/10 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/15"
               >
                 Contact
-              </a>
+              </button>
             </div>
           </div>
         </motion.div>
