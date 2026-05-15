@@ -1,6 +1,6 @@
 {
   "name": "nazir-hussain-portfolio",
-  "description": "Personal portfolio website for Nazir Hussain built with React, Vite, Framer Motion, and React Three Fiber.",
+  "description": "Personal portfolio website for Nazir Hussain built with React, Vite, Framer Motion, Tailwind CSS, and EmailJS.",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,21 +10,29 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
-    "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^9.5.0",
     "framer-motion": "^12.29.2",
     "lucide-react": "^0.563.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "react-router-dom": "^6.14.2",
-    "three": "^0.182.0"
+    "react-router-dom": "^6.14.2"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.2",
     "@vitejs/plugin-react": "^6.0.1",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.39.2",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "prettier": "^3.7.4",
+    "tailwindcss": "^3.4.17",
     "vite": "^8.0.10"
   }
 }

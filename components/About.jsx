@@ -4,8 +4,7 @@ import { SUMMARY, LOCATION, EMAIL, PHONE, NAME, ROLE } from '../constants.js';
 import { MapPin, Mail, Phone, Calendar } from 'lucide-react';
 
 const About = () => {
-  const initials = NAME
-    .split(' ')
+  const initials = NAME.split(' ')
     .map((part) => part[0])
     .join('')
     .slice(0, 2);
@@ -36,7 +35,8 @@ const About = () => {
                   <p className="text-sm uppercase tracking-[0.35em] text-sky-200">Software Engineer</p>
                   <h3 className="max-w-sm text-4xl font-display font-bold leading-tight">{ROLE}</h3>
                   <p className="max-w-md text-sm leading-7 text-slate-300">
-                    Focused on thoughtful frontend experiences, reliable backend systems, and production-ready MERN applications.
+                    Focused on thoughtful frontend experiences, reliable backend systems, and production-ready MERN
+                    applications.
                   </p>
                 </div>
 

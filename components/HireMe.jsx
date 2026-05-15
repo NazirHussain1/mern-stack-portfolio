@@ -10,23 +10,23 @@ const HireMe = () => {
     {
       icon: <Code size={24} />,
       title: 'Full Stack Development',
-      description: 'Complete web applications using the MERN stack with modern UI and UX.'
+      description: 'Complete web applications using the MERN stack with modern UI and UX.',
     },
     {
       icon: <Briefcase size={24} />,
       title: 'Project Consultation',
-      description: 'Technical guidance and architecture planning for your products and web platforms.'
+      description: 'Technical guidance and architecture planning for your products and web platforms.',
     },
     {
       icon: <Clock size={24} />,
       title: 'Quick Turnaround',
-      description: 'Fast delivery without compromising on code quality, maintainability, or best practices.'
+      description: 'Fast delivery without compromising on code quality, maintainability, or best practices.',
     },
     {
       icon: <Star size={24} />,
       title: 'Quality Assurance',
-      description: 'Clean, maintainable code with thoughtful testing and clear documentation.'
-    }
+      description: 'Clean, maintainable code with thoughtful testing and clear documentation.',
+    },
   ];
 
   const benefits = [
@@ -35,11 +35,14 @@ const HireMe = () => {
     'Responsive and mobile-first design approach',
     'API integration and database optimization',
     'Version control with Git and collaborative development',
-    'Available for projects from anywhere globally'
+    'Available for projects from anywhere globally',
   ];
 
   return (
-    <section id="hire-me" className="py-24 bg-gradient-to-br from-primary/5 to-accent/5 dark:from-primary/10 dark:to-accent/10">
+    <section
+      id="hire-me"
+      className="py-24 bg-gradient-to-br from-primary/5 to-accent/5 dark:from-primary/10 dark:to-accent/10"
+    >
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
@@ -55,7 +58,12 @@ const HireMe = () => {
 
         <div className="grid gap-5 mb-16 lg:grid-cols-2">
           <div>
-            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="h-full">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="h-full"
+            >
               <h3 className="text-2xl font-bold mb-8">What I Offer</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {services.map((service, idx) => (
@@ -77,7 +85,12 @@ const HireMe = () => {
           </div>
 
           <div>
-            <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="h-full">
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="h-full"
+            >
               <h3 className="text-2xl font-bold mb-8">Why Choose Me</h3>
               <div className="space-y-4">
                 {benefits.map((benefit, idx) => (
@@ -98,12 +111,17 @@ const HireMe = () => {
           </div>
         </div>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
           <div className="glass p-8 md:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 max-w-4xl mx-auto">
             <h3 className="text-3xl font-bold mb-4">Let&apos;s Start Your Project</h3>
             <p className="text-lg text-slate-600 dark:text-slate-400 mb-8 max-w-2xl mx-auto">
-              Ready to turn your vision into reality? I&apos;m here to help you build web applications that are polished,
-              reliable, and built to scale.
+              Ready to turn your vision into reality? I&apos;m here to help you build web applications that are
+              polished, reliable, and built to scale.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -133,7 +151,8 @@ const HireMe = () => {
 
             <div className="mt-8 pt-8 border-t border-slate-200 dark:border-slate-800">
               <p className="text-sm text-slate-500 dark:text-slate-400">
-                <strong>Available for:</strong> MERN Stack Development | Web Applications | API Development | Database Design | Full-Stack Solutions
+                <strong>Available for:</strong> MERN Stack Development | Web Applications | API Development | Database
+                Design | Full-Stack Solutions
               </p>
             </div>
           </div>

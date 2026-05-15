@@ -5,11 +5,15 @@ import { Briefcase } from 'lucide-react';
 
 const ExperienceTimeline = () => {
   return (
-    <section id="experience" className="py-28 bg-gradient-to-b from-white to-slate-50 dark:from-slate-900 dark:to-slate-950">
+    <section
+      id="experience"
+      className="py-28 bg-gradient-to-b from-white to-slate-50 dark:from-slate-900 dark:to-slate-950"
+    >
       <div className="container mx-auto px-4">
         <div className="text-center mb-20">
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-            Professional <span className="bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">Experience</span>
+            Professional{' '}
+            <span className="bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">Experience</span>
           </h2>
           <p className="text-slate-500 dark:text-slate-400 text-lg">My journey building scalable web applications</p>
         </div>

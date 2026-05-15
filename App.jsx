@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from './components/Navbar.jsx';
 import Hero from './components/Hero.jsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
+import { NAME } from './constants.js';
 
 const LazyAbout = lazy(() => import('./components/About.jsx'));
 const LazySkills = lazy(() => import('./components/Skills.jsx'));
@@ -83,12 +84,12 @@ const App = () => {
   const pageVariants = {
     initial: { opacity: 0, y: 24 },
     animate: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -24 }
+    exit: { opacity: 0, y: -24 },
   };
 
   const pageTransition = {
     duration: 0.45,
-    ease: [0.22, 1, 0.36, 1]
+    ease: [0.22, 1, 0.36, 1],
   };
 
   const PageContainer = ({ children }) => (
@@ -140,6 +141,28 @@ const App = () => {
     </PageContainer>
   );
 
+  const NotFound = () => (
+    <PageContainer>
+      <Navbar darkMode={darkMode} toggleTheme={toggleTheme} />
+      <main className="min-h-screen bg-light dark:bg-dark px-4 pt-32 text-slate-900 dark:text-white">
+        <section className="mx-auto flex max-w-3xl flex-col items-center justify-center py-24 text-center">
+          <p className="mb-4 text-sm font-bold uppercase tracking-[0.28em] text-primary">404</p>
+          <h1 className="mb-6 text-4xl font-display font-bold md:text-6xl">Page not found</h1>
+          <p className="mb-8 max-w-2xl text-base leading-8 text-slate-600 dark:text-slate-300 md:text-lg">
+            The page you requested does not exist on {NAME}&apos;s portfolio. Use the button below to return to the main
+            portfolio.
+          </p>
+          <a
+            href="/"
+            className="rounded-full bg-primary px-8 py-4 text-sm font-bold text-white shadow-lg shadow-primary/25 transition hover:bg-blue-600"
+          >
+            Back to Portfolio
+          </a>
+        </section>
+      </main>
+    </PageContainer>
+  );
+
   const RouteContainer = () => {
     const location = useLocation();
 
@@ -148,7 +171,7 @@ const App = () => {
         <Routes location={location} key={location.pathname}>
           <Route path="/services" element={<Navigate to={{ pathname: '/', hash: '#services' }} replace />} />
           <Route path="/" element={<MainLayout />} />
-          <Route path="*" element={<MainLayout />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </AnimatePresence>
     );

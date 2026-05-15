@@ -5,13 +5,13 @@ import { fileURLToPath, URL } from 'node:url';
 export default defineConfig({
   server: {
     port: 3000,
-    host: '0.0.0.0'
+    host: '0.0.0.0',
   },
   plugins: [react()],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('.', import.meta.url))
-    }
+      '@': fileURLToPath(new URL('.', import.meta.url)),
+    },
   },
   build: {
     rollupOptions: {
@@ -42,8 +42,8 @@ export default defineConfig({
               return 'vendor-3d';
             }
           }
-        }
-      }
-    }
-  }
+        },
+      },
+    },
+  },
 });

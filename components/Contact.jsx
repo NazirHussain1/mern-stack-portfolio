@@ -12,7 +12,8 @@ const Contact = () => {
     email: '',
     project: '',
     customProject: '',
-    message: ''
+    message: '',
+    website: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -48,7 +49,7 @@ const Contact = () => {
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -60,6 +61,8 @@ const Contact = () => {
   };
 
   const sendContactMessage = async () => {
+    if (formData.website) return;
+
     setIsSubmitting(true);
     setSubmitError('');
     setIsSubmitted(false);
@@ -89,7 +92,7 @@ const Contact = () => {
       user_email: formData.email,
       reply_to: formData.email,
       to_email: EMAIL,
-      subject: `New Portfolio Message from ${formData.name} - ${selectedProject}`
+      subject: `New Portfolio Message from ${formData.name} - ${selectedProject}`,
     };
 
     try {
@@ -97,7 +100,7 @@ const Contact = () => {
       await emailjs.send(serviceID, templateID, templateParams, publicKey);
 
       setIsSubmitted(true);
-      setFormData({ name: '', email: '', project: '', customProject: '', message: '' });
+      setFormData({ name: '', email: '', project: '', customProject: '', message: '', website: '' });
 
       if (successTimeoutRef.current) {
         clearTimeout(successTimeoutRef.current);
@@ -146,31 +149,35 @@ const Contact = () => {
     <section id="contact" className="py-24 bg-light dark:bg-dark">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-display font-bold mb-4 italic">Get In <span className="text-primary">Touch</span></h2>
-          <p className="text-slate-500 dark:text-slate-400">Let's discuss your next project or role opportunity</p>
+          <h2 className="text-4xl font-display font-bold mb-4 italic">
+            Get In <span className="text-primary">Touch</span>
+          </h2>
+          <p className="text-slate-500 dark:text-slate-400">Let&apos;s discuss your next project or role opportunity</p>
         </div>
 
         <div className="grid gap-5 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <div className="space-y-6">
               {[
-                { icon: <Mail />, title: "Email", value: EMAIL, href: `mailto:${EMAIL}` },
-                { icon: <Phone />, title: "Phone", value: PHONE, href: `tel:${PHONE.replace(/\D/g,'')}` },
-                { icon: <MessageCircle />, title: "WhatsApp", value: "Chat on WhatsApp", href: whatsappUrl },
-                { icon: <MapPin />, title: "Location", value: LOCATION, href: locationUrl }
+                { icon: <Mail />, title: 'Email', value: EMAIL, href: `mailto:${EMAIL}` },
+                { icon: <Phone />, title: 'Phone', value: PHONE, href: `tel:${PHONE.replace(/\D/g, '')}` },
+                { icon: <MessageCircle />, title: 'WhatsApp', value: 'Chat on WhatsApp', href: whatsappUrl },
+                { icon: <MapPin />, title: 'Location', value: LOCATION, href: locationUrl },
               ].map((item, idx) => (
                 <motion.a
                   key={idx}
                   href={item.href}
-                  target={item.title === "Email" || item.title === "Phone" ? "_self" : "_blank"}
-                  rel={item.title === "Email" || item.title === "Phone" ? undefined : "noopener noreferrer"}
+                  target={item.title === 'Email' || item.title === 'Phone' ? '_self' : '_blank'}
+                  rel={item.title === 'Email' || item.title === 'Phone' ? undefined : 'noopener noreferrer'}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.1 }}
                   viewport={{ once: true }}
                   className="flex items-center gap-6 glass p-6 rounded-2xl hover:border-primary transition-all border border-slate-200 dark:border-slate-800 no-underline group shadow-lg"
                 >
-                  <div className={`p-4 ${item.title === 'WhatsApp' ? 'bg-green-500/10 text-green-500' : 'bg-primary/10 text-primary'} rounded-2xl group-hover:scale-110 transition-transform`}>
+                  <div
+                    className={`p-4 ${item.title === 'WhatsApp' ? 'bg-green-500/10 text-green-500' : 'bg-primary/10 text-primary'} rounded-2xl group-hover:scale-110 transition-transform`}
+                  >
                     {item.icon}
                   </div>
                   <div>
@@ -202,7 +209,9 @@ const Contact = () => {
                   <div className="flex items-start gap-3">
                     <AlertTriangle size={20} className="text-red-600 mt-1" />
                     <div>
-                      <p className="text-sm font-bold text-rose-700 dark:text-rose-200 mb-2">Could not send your message</p>
+                      <p className="text-sm font-bold text-rose-700 dark:text-rose-200 mb-2">
+                        Could not send your message
+                      </p>
                       <p className="text-sm text-rose-700 dark:text-rose-200 leading-6">{submitError}</p>
                     </div>
                   </div>
@@ -227,44 +236,75 @@ const Contact = () => {
                 >
                   <CheckCircle size={20} className="text-green-600" />
                   <span className="text-green-700 dark:text-green-300 font-medium">
-                    Message sent successfully! I'll get back to you soon.
+                    Message sent successfully! I&apos;ll get back to you soon.
                   </span>
                 </motion.div>
               )}
-              
+
               <fieldset disabled={isSubmitting} className="grid gap-4 md:grid-cols-2">
                 <div className="md:col-span-1">
+                  <input
+                    type="text"
+                    name="website"
+                    value={formData.website}
+                    onChange={handleInputChange}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    className="hidden"
+                    aria-hidden="true"
+                  />
                   <div className="form-group mb-4">
-                    <label className="text-sm font-bold uppercase text-slate-500 tracking-wider mb-2 block">Name</label>
-                    <input 
-                      type="text" 
+                    <label
+                      htmlFor="contact-name"
+                      className="text-sm font-bold uppercase text-slate-500 tracking-wider mb-2 block"
+                    >
+                      Name
+                    </label>
+                    <input
+                      id="contact-name"
+                      type="text"
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full bg-slate-100 dark:bg-slate-800 border border-transparent p-4 rounded-xl focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-slate-900 outline-none transition-all" 
-                      placeholder="Enter your name" 
+                      minLength={2}
+                      autoComplete="name"
+                      className="w-full bg-slate-100 dark:bg-slate-800 border border-transparent p-4 rounded-xl focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-slate-900 outline-none transition-all"
+                      placeholder="Enter your name"
                     />
                   </div>
                 </div>
                 <div className="md:col-span-1">
                   <div className="form-group mb-4">
-                    <label className="text-sm font-bold uppercase text-slate-500 tracking-wider mb-2 block">Email</label>
-                    <input 
-                      type="email" 
+                    <label
+                      htmlFor="contact-email"
+                      className="text-sm font-bold uppercase text-slate-500 tracking-wider mb-2 block"
+                    >
+                      Email
+                    </label>
+                    <input
+                      id="contact-email"
+                      type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="w-full bg-slate-100 dark:bg-slate-800 border border-transparent p-4 rounded-xl focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-slate-900 outline-none transition-all" 
-                      placeholder="your@email.com" 
+                      autoComplete="email"
+                      className="w-full bg-slate-100 dark:bg-slate-800 border border-transparent p-4 rounded-xl focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-slate-900 outline-none transition-all"
+                      placeholder="your@email.com"
                     />
                   </div>
                 </div>
                 <div className="md:col-span-2">
                   <div className="form-group mb-4">
-                    <label className="text-sm font-bold uppercase text-slate-500 tracking-wider mb-2 block">Project Type <span className="text-slate-400">(Optional)</span></label>
-                    <select 
+                    <label
+                      htmlFor="contact-project"
+                      className="text-sm font-bold uppercase text-slate-500 tracking-wider mb-2 block"
+                    >
+                      Project Type <span className="text-slate-400">(Optional)</span>
+                    </label>
+                    <select
+                      id="contact-project"
                       name="project"
                       value={formData.project}
                       onChange={handleInputChange}
@@ -287,47 +327,59 @@ const Contact = () => {
                     </select>
                   </div>
                 </div>
-                
+
                 {/* Custom Project Input - Shows only when "Other" is selected */}
                 {formData.project === 'Other' && (
                   <div className="md:col-span-2">
                     <div className="form-group mb-4">
-                      <label className="text-sm font-bold uppercase text-slate-500 tracking-wider mb-2 block">Custom Project Type</label>
-                      <input 
-                        type="text" 
+                      <label
+                        htmlFor="contact-custom-project"
+                        className="text-sm font-bold uppercase text-slate-500 tracking-wider mb-2 block"
+                      >
+                        Custom Project Type
+                      </label>
+                      <input
+                        id="contact-custom-project"
+                        type="text"
                         name="customProject"
                         value={formData.customProject}
                         onChange={handleInputChange}
-                        className="w-full bg-slate-100 dark:bg-slate-800 border border-transparent p-4 rounded-xl focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-slate-900 outline-none transition-all" 
-                        placeholder="Enter your custom project type..." 
+                        className="w-full bg-slate-100 dark:bg-slate-800 border border-transparent p-4 rounded-xl focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-slate-900 outline-none transition-all"
+                        placeholder="Enter your custom project type..."
                       />
                     </div>
                   </div>
                 )}
-                
+
                 <div className="md:col-span-2">
                   <div className="form-group mb-6">
-                    <label className="text-sm font-bold uppercase text-slate-500 tracking-wider mb-2 block">Message</label>
-                    <textarea 
-                      rows={5} 
+                    <label
+                      htmlFor="contact-message"
+                      className="text-sm font-bold uppercase text-slate-500 tracking-wider mb-2 block"
+                    >
+                      Message
+                    </label>
+                    <textarea
+                      id="contact-message"
+                      rows={5}
                       name="message"
                       value={formData.message}
                       onChange={handleInputChange}
                       required
-                      className="w-full bg-slate-100 dark:bg-slate-800 border border-transparent p-4 rounded-xl focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-slate-900 outline-none transition-all resize-none" 
+                      minLength={20}
+                      maxLength={1600}
+                      className="w-full bg-slate-100 dark:bg-slate-800 border border-transparent p-4 rounded-xl focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-slate-900 outline-none transition-all resize-none"
                       placeholder="Tell me about your project requirements, timeline, budget, and any specific details..."
                     ></textarea>
                   </div>
                 </div>
               </fieldset>
-              <button 
+              <button
                 type="submit"
                 aria-label="Send contact message"
                 disabled={isSubmitting}
                 className={`w-full py-4 rounded-2xl font-bold flex items-center justify-center gap-3 shadow-lg transition-all text-lg group ${
-                  isSubmitting 
-                    ? 'bg-slate-400 cursor-not-allowed' 
-                    : 'bg-primary hover:bg-blue-600 shadow-primary/30'
+                  isSubmitting ? 'bg-slate-400 cursor-not-allowed' : 'bg-primary hover:bg-blue-600 shadow-primary/30'
                 } text-white`}
               >
                 {isSubmitting ? (
@@ -337,7 +389,10 @@ const Contact = () => {
                   </>
                 ) : (
                   <>
-                    <Send size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    <Send
+                      size={20}
+                      className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
+                    />
                     Send Message
                   </>
                 )}

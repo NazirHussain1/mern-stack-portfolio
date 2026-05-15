@@ -16,7 +16,9 @@ const ServiceCard = ({ icon: Icon, title, description, stack }) => {
       <p className="text-sm leading-7 text-slate-600 dark:text-slate-300 mb-6">{description}</p>
 
       <div className="mt-auto space-y-3">
-        <h4 className="text-xs uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400 font-semibold">Tech stack</h4>
+        <h4 className="text-xs uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400 font-semibold">
+          Tech stack
+        </h4>
         <div className="flex flex-wrap gap-2">
           {stack.map((tech) => (
             <span

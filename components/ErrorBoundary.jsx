@@ -27,9 +27,7 @@ class ErrorBoundary extends React.Component {
             <p className="text-slate-600 dark:text-slate-300 mb-6">
               An unexpected error occurred while loading the app. Please reload the page and try again.
             </p>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
-              {this.state.error?.message}
-            </p>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">{this.state.error?.message}</p>
             <button
               type="button"
               onClick={this.handleReload}

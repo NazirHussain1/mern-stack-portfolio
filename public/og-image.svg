@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Nazir Hussain MERN Stack Developer</title>
+  <desc id="desc">Open graph preview image for Nazir Hussain's MERN stack developer portfolio.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="0.55" stop-color="#111827"/>
+      <stop offset="1" stop-color="#0e7490"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" x2="1">
+      <stop offset="0" stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#10b981"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1030" cy="90" r="180" fill="#3b82f6" opacity="0.18"/>
+  <circle cx="160" cy="560" r="220" fill="#10b981" opacity="0.16"/>
+  <rect x="72" y="72" width="1056" height="486" rx="34" fill="rgba(15, 23, 42, 0.72)" stroke="rgba(255,255,255,0.16)" stroke-width="2"/>
+  <text x="110" y="190" fill="#93c5fd" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="6">MERN STACK DEVELOPER</text>
+  <text x="110" y="300" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="78" font-weight="800">Nazir Hussain</text>
+  <text x="110" y="374" fill="#cbd5e1" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="500">React, Node.js, Express.js, MongoDB</text>
+  <rect x="110" y="432" width="420" height="70" rx="35" fill="url(#accent)"/>
+  <text x="145" y="477" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="25" font-weight="800">Full-Stack Web Portfolio</text>
+  <g transform="translate(820 195)">
+    <rect x="0" y="0" width="220" height="220" rx="36" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.18)"/>
+    <text x="110" y="134" text-anchor="middle" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="74" font-weight="900">NH</text>
+  </g>
+</svg>

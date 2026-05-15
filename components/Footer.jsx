@@ -74,7 +74,7 @@ const Footer = () => {
               className="text-2xl font-display font-bold text-gradient relative group-hover:scale-105 transition-all duration-300"
               whileHover={{
                 textShadow: '0 0 20px rgba(59, 130, 246, 0.3)',
-                filter: 'drop-shadow(0 0 10px rgba(59, 130, 246, 0.2))'
+                filter: 'drop-shadow(0 0 10px rgba(59, 130, 246, 0.2))',
               }}
             >
               <span className="relative">
@@ -86,20 +86,40 @@ const Footer = () => {
           </div>
 
           <div className="flex items-center space-x-6">
-            <a href={`https://${LINKEDIN}`} target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl glass hover:text-primary transition-colors text-slate-600 dark:text-slate-400">
+            <a
+              href={`https://${LINKEDIN}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit Nazir Hussain on LinkedIn"
+              className="p-3 rounded-xl glass hover:text-primary transition-colors text-slate-600 dark:text-slate-400"
+            >
               <Linkedin size={20} />
             </a>
-            <a href={`https://${GITHUB}`} target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl glass hover:text-primary transition-colors text-slate-600 dark:text-slate-400">
+            <a
+              href={`https://${GITHUB}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit Nazir Hussain on GitHub"
+              className="p-3 rounded-xl glass hover:text-primary transition-colors text-slate-600 dark:text-slate-400"
+            >
               <Github size={20} />
             </a>
-            <a href="https://www.facebook.com/nazir.hussain.371869/" target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl glass hover:text-primary transition-colors text-slate-600 dark:text-slate-400">
+            <a
+              href="https://www.facebook.com/nazir.hussain.371869/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit Nazir Hussain on Facebook"
+              className="p-3 rounded-xl glass hover:text-primary transition-colors text-slate-600 dark:text-slate-400"
+            >
               <Facebook size={20} />
             </a>
           </div>
         </div>
 
         <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500 dark:text-slate-400">
-          <p>&copy; {new Date().getFullYear()} {NAME}. All rights reserved.</p>
+          <p>
+            &copy; {new Date().getFullYear()} {NAME}. All rights reserved.
+          </p>
           <p className="flex items-center gap-1">
             Built with <Heart size={14} className="text-red-500 fill-red-500" /> using React & Tailwind
           </p>
