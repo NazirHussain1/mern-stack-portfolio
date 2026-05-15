@@ -106,6 +106,69 @@ export const PROJECTS = [
   },
 ];
 
+export const PROJECT_RESULTS = [
+  {
+    metric: '10+',
+    label: 'API workflows integrated',
+    detail:
+      'Authentication, CRUD modules, filtering, pagination, orders, and role-based flows across portfolio projects.',
+  },
+  {
+    metric: '8+',
+    label: 'Dashboard/UI modules built',
+    detail:
+      'Reusable forms, tables, admin screens, profile views, and responsive layouts for production-style applications.',
+  },
+  {
+    metric: '4',
+    label: 'Full-stack case studies',
+    detail:
+      'Blogging, ecommerce, legal appointment, and job-matching projects covering frontend, backend, and deployment.',
+  },
+  {
+    metric: '100%',
+    label: 'Responsive portfolio focus',
+    detail: 'Mobile-first layouts, accessible forms, optimized routing, SEO metadata, and Vercel-ready deployment.',
+  },
+];
+
+export const GITHUB_HIGHLIGHTS = [
+  {
+    title: 'Aureva E-Commerce Platform',
+    summary:
+      'Full-stack commerce platform with authentication, product management, cart, order, and payment workflows.',
+    stack: ['React', 'Node.js', 'PostgreSQL', 'Prisma', 'Stripe'],
+    href: 'https://github.com/NazirHussain1/aureva-ecommerce-platform',
+  },
+  {
+    title: 'Blog API Pagination & Filtering',
+    summary: 'Blog platform focused on backend data handling, pagination, filtering, and frontend API consumption.',
+    stack: ['React', 'Node.js', 'Express', 'MongoDB'],
+    href: 'https://blog-api-pagination-filtering.vercel.app/',
+  },
+  {
+    title: 'Full Stack Portfolio',
+    summary: 'Production portfolio with SEO metadata, responsive UI, contact automation, and deployment-ready tooling.',
+    stack: ['React', 'Vite', 'Tailwind CSS', 'EmailJS'],
+    href: 'https://github.com/NazirHussain1/mern-stack-portfolio',
+  },
+];
+
+export const TESTIMONIALS = [
+  {
+    title: 'References available on request',
+    quote:
+      'Real testimonials should come from clients, mentors, managers, or teammates. This section is ready for verified feedback when available.',
+    source: 'Professional references',
+  },
+  {
+    title: 'Collaboration style',
+    quote:
+      'I focus on clear communication, practical problem-solving, responsive UI delivery, and reliable API integration across full-stack workflows.',
+    source: 'Working approach',
+  },
+];
+
 export const SKILLS = [
   {
     title: 'Languages',

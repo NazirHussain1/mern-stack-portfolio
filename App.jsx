@@ -10,6 +10,7 @@ const LazyAbout = lazy(() => import('./components/About.jsx'));
 const LazySkills = lazy(() => import('./components/Skills.jsx'));
 const LazyExperienceTimeline = lazy(() => import('./components/Experience.jsx'));
 const LazyProjects = lazy(() => import('./components/Projects.jsx'));
+const LazyCredibility = lazy(() => import('./components/Credibility.jsx'));
 const LazyEducation = lazy(() => import('./components/Education.jsx'));
 const LazyHireMe = lazy(() => import('./components/HireMe.jsx'));
 const LazyContact = lazy(() => import('./components/Contact.jsx'));
@@ -121,6 +122,9 @@ const App = () => {
         </DeferredSection>
         <DeferredSection sectionId="projects" minHeightClass="min-h-[36rem]">
           <LazyProjects />
+        </DeferredSection>
+        <DeferredSection sectionId="proof" minHeightClass="min-h-[34rem]">
+          <LazyCredibility />
         </DeferredSection>
         <DeferredSection sectionId="services" minHeightClass="min-h-[34rem]">
           <LazyServices />
