@@ -18,8 +18,14 @@ const LazyServices = lazy(() => import('./components/Services.jsx'));
 const LazyFooter = lazy(() => import('./components/Footer.jsx'));
 
 const SectionLoader = ({ minHeightClass = 'min-h-[24rem]' }) => (
-  <div className={`${minHeightClass} flex items-center justify-center text-slate-500 dark:text-slate-400`}>
-    Loading section...
+  <div
+    aria-busy="true"
+    className={`${minHeightClass} flex items-center justify-center px-4 text-slate-500 dark:text-slate-400`}
+  >
+    <span className="sr-only">Loading section</span>
+    <div className="h-2 w-32 rounded-full bg-slate-200 dark:bg-slate-800">
+      <div className="h-full w-1/2 animate-pulse rounded-full bg-primary/50" />
+    </div>
   </div>
 );
 
@@ -51,7 +57,7 @@ const DeferredSection = ({ sectionId, children, rootMargin = '500px 0px', minHei
   }, [rootMargin, shouldLoad]);
 
   return (
-    <div id={shouldLoad ? undefined : sectionId} ref={anchorRef}>
+    <div id={sectionId} ref={anchorRef} className="scroll-mt-24">
       {shouldLoad ? (
         <Suspense fallback={<SectionLoader minHeightClass={minHeightClass} />}>{children}</Suspense>
       ) : (

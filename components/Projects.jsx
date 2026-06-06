@@ -28,7 +28,7 @@ const projectVisuals = [
 
 const Projects = () => {
   return (
-    <section id="projects" className="py-24 bg-light dark:bg-dark">
+    <section className="py-24 bg-light dark:bg-dark">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-display font-bold mb-4 italic">
@@ -56,7 +56,7 @@ const Projects = () => {
                 <div className={`relative overflow-hidden aspect-video bg-gradient-to-br ${visual.shell}`}>
                   <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.8),_transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(15,23,42,0.5),_transparent_40%)]" />
                   <div
-                    className={`absolute inset-6 rounded-[2rem] border border-white/20 bg-gradient-to-br ${visual.panel} backdrop-blur-md p-6 shadow-2xl`}
+                    className={`absolute inset-4 rounded-2xl border border-white/20 bg-gradient-to-br ${visual.panel} backdrop-blur-md p-4 shadow-2xl sm:inset-6 sm:rounded-[2rem] sm:p-6`}
                   >
                     <div className="flex h-full flex-col justify-between">
                       <div className="flex items-center justify-between gap-3">
@@ -70,7 +70,7 @@ const Projects = () => {
 
                       <div>
                         <p className="text-sm font-medium text-white/70">Featured project</p>
-                        <h3 className="mt-3 max-w-xs text-3xl font-display font-bold leading-tight text-white">
+                        <h3 className="mt-3 max-w-xs text-2xl font-display font-bold leading-tight text-white sm:text-3xl">
                           {project.title}
                         </h3>
                       </div>
@@ -89,7 +89,7 @@ const Projects = () => {
                   </div>
                 </div>
 
-                <div className="p-8 flex flex-col flex-grow">
+                <div className="p-6 sm:p-8 flex flex-col flex-grow">
                   <div className="space-y-4 mb-8 flex-grow">
                     {project.description.map((desc, i) => (
                       <p key={i} className="text-slate-600 dark:text-slate-400 leading-relaxed">
@@ -109,7 +109,7 @@ const Projects = () => {
                     ))}
                   </div>
 
-                  <div className="flex gap-4">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
                     {hasGithub ? (
                       <a
                         href={project.links.github}

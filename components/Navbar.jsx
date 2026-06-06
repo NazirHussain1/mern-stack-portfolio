@@ -160,13 +160,13 @@ const Navbar = ({ darkMode, toggleTheme }) => {
         </motion.button>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center space-x-8">
+        <div className="hidden lg:flex items-center gap-5 xl:gap-8">
           {navLinks.map((link) => (
             <button
               key={link.name}
               onClick={() => handleNavClick(link)}
               aria-current={isActive(link) ? 'true' : undefined}
-              className={`font-medium transition-colors cursor-pointer ${isActive(link) ? 'text-primary' : 'text-slate-600 dark:text-slate-300'} hover:text-primary dark:hover:text-white`}
+              className={`text-sm xl:text-base font-medium transition-colors cursor-pointer ${isActive(link) ? 'text-primary' : 'text-slate-600 dark:text-slate-300'} hover:text-primary dark:hover:text-white`}
             >
               {link.name}
             </button>
@@ -182,7 +182,7 @@ const Navbar = ({ darkMode, toggleTheme }) => {
         </div>
 
         {/* Mobile Toggle */}
-        <div className="md:hidden flex items-center space-x-4">
+        <div className="lg:hidden flex items-center space-x-4">
           <button
             type="button"
             onClick={toggleTheme}
@@ -208,7 +208,7 @@ const Navbar = ({ darkMode, toggleTheme }) => {
         <motion.div
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
-          className="md:hidden bg-light dark:bg-dark glass border-b border-slate-200 dark:border-slate-800"
+          className="lg:hidden bg-light dark:bg-dark glass border-b border-slate-200 dark:border-slate-800"
         >
           <div className="flex flex-col p-4 space-y-4">
             {navLinks.map((link) => (

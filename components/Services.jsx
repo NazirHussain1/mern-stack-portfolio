@@ -56,10 +56,7 @@ const Services = () => {
   };
 
   return (
-    <section
-      id="services"
-      className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 py-24 px-4 text-white sm:px-6 lg:px-8"
-    >
+    <section className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 py-24 px-4 text-white sm:px-6 lg:px-8">
       <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.35),_transparent_45%),radial-gradient(circle_at_bottom_right,_rgba(139,92,246,0.25),_transparent_40%)] pointer-events-none"></div>
       <div className="relative mx-auto max-w-7xl">
         <motion.div

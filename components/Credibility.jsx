@@ -5,7 +5,7 @@ import { GITHUB_HIGHLIGHTS, PROJECT_RESULTS, TESTIMONIALS } from '../constants.j
 
 const Credibility = () => {
   return (
-    <section id="proof" className="py-24 bg-white dark:bg-slate-950">
+    <section className="py-24 bg-white dark:bg-slate-950">
       <div className="container mx-auto px-4">
         <div className="mx-auto mb-16 max-w-3xl text-center">
           <p className="mb-4 text-sm font-bold uppercase tracking-[0.28em] text-primary">Proof of Work</p>

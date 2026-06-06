@@ -10,7 +10,7 @@ const About = () => {
     .slice(0, 2);
 
   return (
-    <section id="about" className="py-24 bg-white dark:bg-slate-900/50">
+    <section className="py-24 bg-white dark:bg-slate-900/50">
       <div className="container mx-auto px-4 md:px-8">
         <div className="grid gap-12 lg:grid-cols-12 items-center">
           <div className="lg:col-span-5 mb-12 lg:mb-0">

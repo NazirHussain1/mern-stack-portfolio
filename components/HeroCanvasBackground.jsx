@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-const Canvas3D = ({ onCreated }) => {
+const HeroCanvasBackground = ({ onCreated }) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -90,4 +90,4 @@ const Canvas3D = ({ onCreated }) => {
   );
 };
 
-export default Canvas3D;
+export default HeroCanvasBackground;

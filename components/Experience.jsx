@@ -5,10 +5,7 @@ import { Briefcase } from 'lucide-react';
 
 const ExperienceTimeline = () => {
   return (
-    <section
-      id="experience"
-      className="py-28 bg-gradient-to-b from-white to-slate-50 dark:from-slate-900 dark:to-slate-950"
-    >
+    <section className="py-28 bg-gradient-to-b from-white to-slate-50 dark:from-slate-900 dark:to-slate-950">
       <div className="container mx-auto px-4">
         <div className="text-center mb-20">
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
@@ -34,7 +31,7 @@ const ExperienceTimeline = () => {
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -6 }}
-                className="ml-14 md:ml-0 md:w-1/2 p-8 rounded-3xl backdrop-blur-xl bg-white/70 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 shadow-xl hover:shadow-primary/20 transition-all duration-300"
+                className="ml-14 rounded-3xl border border-slate-200 bg-white/70 p-6 shadow-xl backdrop-blur-xl transition-all duration-300 hover:shadow-primary/20 dark:border-slate-700 dark:bg-slate-800/70 sm:p-8 md:ml-0 md:w-1/2"
               >
                 <span className="text-sm font-bold text-primary uppercase tracking-widest">{exp.period}</span>
 

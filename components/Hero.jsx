@@ -1,7 +1,7 @@
 import React, { useState, useEffect, lazy, Suspense, useRef } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Download, Mail, ArrowDown, Eye, ChevronDown, AlertCircle } from 'lucide-react';
-const Canvas3D = lazy(() => import('./Canvas3D.jsx'));
+const HeroCanvasBackground = lazy(() => import('./HeroCanvasBackground.jsx'));
 import { HeroCanvasSkeleton } from './SkeletonLoader.jsx';
 import { NAME, PHONE, RESUME_PATH } from '../constants.js';
 import WhatsAppIcon from './WhatsAppIcon.jsx';
@@ -137,7 +137,7 @@ const Hero = () => {
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {!prefersReducedMotion && shouldLoadCanvas && (
         <Suspense fallback={<HeroCanvasSkeleton />}>
-          <Canvas3D onCreated={() => setCanvasLoaded(true)} />
+          <HeroCanvasBackground onCreated={() => setCanvasLoaded(true)} />
         </Suspense>
       )}
       {!prefersReducedMotion && (!shouldLoadCanvas || !canvasLoaded) && <HeroCanvasSkeleton />}
@@ -146,7 +146,7 @@ const Hero = () => {
           <span className="inline-block py-1 px-3 mb-4 rounded-full bg-primary/10 text-primary font-semibold text-sm tracking-widest uppercase">
             Available for Full Stack Development & Web Services
           </span>
-          <h1 className="text-5xl md:text-8xl font-display font-extrabold mb-6 tracking-tight">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl xl:text-8xl font-display font-extrabold mb-6 tracking-tight">
             <span className="text-gradient">{NAME}</span>
           </h1>
           <div className="h-12 md:h-16 mb-8">
@@ -161,7 +161,7 @@ const Hero = () => {
               onClick={() => scrollToSection('contact')}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="w-full sm:w-auto min-w-[220px] px-8 py-4 bg-primary text-white rounded-full font-bold shadow-lg shadow-primary/30 flex items-center justify-center gap-2 hover:bg-blue-600 transition-all no-underline"
+              className="w-full sm:w-auto sm:min-w-52 px-6 sm:px-8 py-4 bg-primary text-white rounded-full font-bold shadow-lg shadow-primary/30 flex items-center justify-center gap-2 hover:bg-blue-600 transition-all no-underline"
             >
               <Mail size={20} />
               Contact Me
@@ -172,7 +172,7 @@ const Hero = () => {
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="w-full sm:w-auto min-w-[220px] px-8 py-4 bg-green-600 text-white rounded-full font-bold shadow-lg shadow-green-600/30 flex items-center justify-center gap-2 hover:bg-green-700 transition-all no-underline"
+              className="w-full sm:w-auto sm:min-w-52 px-6 sm:px-8 py-4 bg-green-600 text-white rounded-full font-bold shadow-lg shadow-green-600/30 flex items-center justify-center gap-2 hover:bg-green-700 transition-all no-underline"
             >
               <WhatsAppIcon size={21} />
               WhatsApp Me
@@ -186,7 +186,7 @@ const Hero = () => {
                     onClick={handleResumeToggle}
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-full sm:w-auto min-w-[220px] px-8 py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-full font-bold shadow-lg shadow-emerald-500/30 flex items-center justify-center gap-2 hover:shadow-xl hover:shadow-emerald-500/40 transition-all no-underline group"
+                    className="w-full sm:w-auto sm:min-w-52 px-6 sm:px-8 py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-full font-bold shadow-lg shadow-emerald-500/30 flex items-center justify-center gap-2 hover:shadow-xl hover:shadow-emerald-500/40 transition-all no-underline group"
                   >
                     <Download size={20} className="group-hover:animate-bounce" />
                     Resume/CV
@@ -211,7 +211,7 @@ const Hero = () => {
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: cvDropdownDirection === 'up' ? 10 : -10, scale: 0.95 }}
                           transition={{ duration: 0.2 }}
-                          className={`absolute left-1/2 w-full min-w-[220px] -translate-x-1/2 sm:w-64 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden z-[101] backdrop-blur-xl ${
+                          className={`absolute left-1/2 w-full min-w-52 -translate-x-1/2 sm:w-64 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden z-[101] backdrop-blur-xl ${
                             cvDropdownDirection === 'up' ? 'bottom-full mb-3' : 'top-full mt-3'
                           }`}
                         >
@@ -254,7 +254,7 @@ const Hero = () => {
               ) : (
                 <motion.div
                   whileHover={{ scale: 1.02 }}
-                  className="w-full sm:w-auto min-w-[220px] px-8 py-4 rounded-full border-2 border-dashed border-slate-300 dark:border-slate-600 bg-slate-50/50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-300 font-semibold flex items-center justify-center gap-2 backdrop-blur-sm"
+                  className="w-full sm:w-auto sm:min-w-52 px-6 sm:px-8 py-4 rounded-full border-2 border-dashed border-slate-300 dark:border-slate-600 bg-slate-50/50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-300 font-semibold flex items-center justify-center gap-2 backdrop-blur-sm"
                 >
                   <AlertCircle size={18} className="text-slate-400" />
                   Coming Soon

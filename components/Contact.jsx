@@ -147,7 +147,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-24 bg-light dark:bg-dark">
+    <section className="py-24 bg-light dark:bg-dark">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-display font-bold mb-4 italic">
@@ -183,7 +183,9 @@ const Contact = () => {
                   </div>
                   <div>
                     <h4 className="text-sm font-bold uppercase text-slate-500 tracking-wider mb-1">{item.title}</h4>
-                    <p className="text-lg font-bold text-slate-900 dark:text-white m-0 break-all">{item.value}</p>
+                    <p className="text-base sm:text-lg font-bold text-slate-900 dark:text-white m-0 break-words">
+                      {item.value}
+                    </p>
                   </div>
                 </motion.a>
               ))}
@@ -195,7 +197,7 @@ const Contact = () => {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="relative glass p-10 rounded-3xl border border-slate-200 dark:border-slate-800 h-full shadow-2xl"
+              className="relative glass p-6 sm:p-8 lg:p-10 rounded-3xl border border-slate-200 dark:border-slate-800 h-full shadow-2xl"
               onSubmit={handleSubmit}
             >
               {isSubmitting && <ContactFormSkeleton />}

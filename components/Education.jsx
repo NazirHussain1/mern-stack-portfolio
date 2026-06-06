@@ -5,7 +5,7 @@ import { GraduationCap, Globe } from 'lucide-react';
 
 const Education = () => {
   return (
-    <section id="education" className="py-24 bg-white dark:bg-slate-900/50">
+    <section className="py-24 bg-white dark:bg-slate-900/50">
       <div className="container mx-auto px-4">
         <div className="grid gap-12 lg:grid-cols-2">
           <div className="lg:col-span-1 mb-12 lg:mb-0">

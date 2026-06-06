@@ -39,10 +39,7 @@ const HireMe = () => {
   ];
 
   return (
-    <section
-      id="hire-me"
-      className="py-24 bg-gradient-to-br from-primary/5 to-accent/5 dark:from-primary/10 dark:to-accent/10"
-    >
+    <section className="py-24 bg-gradient-to-br from-primary/5 to-accent/5 dark:from-primary/10 dark:to-accent/10">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
