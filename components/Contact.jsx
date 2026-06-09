@@ -7,6 +7,7 @@ import WhatsAppIcon from './WhatsAppIcon.jsx';
 
 const Contact = () => {
   const whatsappUrl = `https://wa.me/${PHONE.replace(/\+/g, '')}`;
+  const emailUrl = `mailto:${EMAIL}`;
   const locationUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(LOCATION)}`;
   const [formData, setFormData] = useState({
     name: '',
@@ -19,6 +20,7 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [canRetry, setCanRetry] = useState(true);
   const successTimeoutRef = useRef(null);
   const emailJsModuleRef = useRef(null);
   const emailJsInitializedRef = useRef(false);
@@ -66,6 +68,7 @@ const Contact = () => {
 
     setIsSubmitting(true);
     setSubmitError('');
+    setCanRetry(true);
     setIsSubmitted(false);
 
     const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
@@ -73,9 +76,8 @@ const Contact = () => {
     const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
     if (!serviceID || !templateID || !publicKey) {
-      setSubmitError(
-        'Email service is not configured correctly. Please try again later, or reach out directly at ' + EMAIL + '.'
-      );
+      setSubmitError(`The contact form is temporarily unavailable. Please email me directly at ${EMAIL}.`);
+      setCanRetry(false);
       setIsSubmitting(false);
       return;
     }
@@ -218,15 +220,33 @@ const Contact = () => {
                       <p className="text-sm text-rose-700 dark:text-rose-200 leading-6">{submitError}</p>
                     </div>
                   </div>
-                  <button
-                    type="button"
-                    aria-label="Retry sending message"
-                    disabled={isSubmitting}
-                    onClick={handleRetry}
-                    className="mt-4 inline-flex items-center justify-center rounded-full bg-red-600 text-white px-4 py-2 text-sm font-semibold hover:bg-red-700 transition disabled:opacity-70 disabled:cursor-not-allowed"
-                  >
-                    Retry
-                  </button>
+                  <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+                    {canRetry && (
+                      <button
+                        type="button"
+                        aria-label="Retry sending message"
+                        disabled={isSubmitting}
+                        onClick={handleRetry}
+                        className="inline-flex items-center justify-center rounded-full bg-red-600 text-white px-4 py-2 text-sm font-semibold hover:bg-red-700 transition disabled:opacity-70 disabled:cursor-not-allowed"
+                      >
+                        Retry
+                      </button>
+                    )}
+                    <a
+                      href={emailUrl}
+                      className="inline-flex items-center justify-center rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200"
+                    >
+                      Email Directly
+                    </a>
+                    <a
+                      href={whatsappUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center rounded-full bg-green-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-green-700"
+                    >
+                      WhatsApp
+                    </a>
+                  </div>
                 </motion.div>
               )}
               {isSubmitted && (
