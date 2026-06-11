@@ -121,18 +121,25 @@ const Contact = () => {
         (typeof error?.message === 'string' && error.message.toLowerCase().includes('network')) ||
         (typeof error?.text === 'string' && error.text.toLowerCase().includes('network'));
 
-      let message = isNetworkError
-        ? 'Unable to send your message because your network appears to be offline. Check your connection and retry.'
-        : 'Something went wrong while sending your message. Please try again.';
+      const detail = `${error?.text || ''} ${error?.message || ''}`.toLowerCase();
+      const isServiceAuthError =
+        detail.includes('invalid grant') || detail.includes('reconnect') || detail.includes('gmail_api');
 
-      if (!isNetworkError) {
-        const detail = error?.text || error?.message || '';
-        if (detail) {
-          message = `${message} ${detail}`.trim();
-        }
+      let message = 'Something went wrong while sending your message. Please try again.';
+      let shouldAppendDirectContact = true;
+
+      if (isNetworkError) {
+        message =
+          'Unable to send your message because your network appears to be offline. Check your connection and retry.';
+      } else if (isServiceAuthError) {
+        message = `The contact form is temporarily unavailable. Please email me directly at ${EMAIL}.`;
+        shouldAppendDirectContact = false;
+        setCanRetry(false);
       }
 
-      setSubmitError(`${message} If this keeps happening, contact me directly at ${EMAIL}.`);
+      setSubmitError(
+        shouldAppendDirectContact ? `${message} If this keeps happening, contact me directly at ${EMAIL}.` : message
+      );
     } finally {
       setIsSubmitting(false);
     }
