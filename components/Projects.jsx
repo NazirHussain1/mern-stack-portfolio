@@ -102,6 +102,25 @@ const Projects = () => {
                 </div>
 
                 <div className="p-6 sm:p-8 flex flex-col flex-grow">
+                  <div className="mb-6 grid gap-3 sm:grid-cols-2">
+                    {project.role && (
+                      <div className="rounded-2xl border border-slate-200 bg-white/60 p-4 dark:border-slate-800 dark:bg-slate-900/40">
+                        <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-primary">Role</p>
+                        <p className="mt-2 text-sm font-semibold leading-6 text-slate-700 dark:text-slate-200">
+                          {project.role}
+                        </p>
+                      </div>
+                    )}
+                    {project.outcome && (
+                      <div className="rounded-2xl border border-slate-200 bg-white/60 p-4 dark:border-slate-800 dark:bg-slate-900/40">
+                        <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-primary">Outcome</p>
+                        <p className="mt-2 text-sm font-semibold leading-6 text-slate-700 dark:text-slate-200">
+                          {project.outcome}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+
                   <div className="space-y-4 mb-8 flex-grow">
                     {project.description.map((desc, i) => (
                       <p key={i} className="text-slate-600 dark:text-slate-400 leading-relaxed">

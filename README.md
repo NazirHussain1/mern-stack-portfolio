@@ -39,6 +39,7 @@ This project is a React and Vite portfolio application with:
 |-- public/
 |   |-- Nazir-Resume.pdf
 |   |-- og-image.svg
+|   |-- projects/
 |   |-- robots.txt
 |   `-- sitemap.xml
 |-- tailwind.config.js
@@ -107,9 +108,52 @@ This repository is prepared for Vercel deployment.
 ## Maintenance Notes
 
 - Update project content in `constants.js`
+- Add project screenshots in `public/projects/` and reference them as `/projects/file-name.png`
 - Replace `public/Nazir-Resume.pdf` when the resume changes
 - Keep SEO metadata, `robots.txt`, and `sitemap.xml` aligned with the deployed domain
 - Keep environment secrets out of version control by using `.env`
+
+## Updating Projects
+
+Projects are controlled from `constants.js`.
+
+To add a new project:
+
+1. Copy an existing object inside `PROJECTS`
+2. Update `title`, `period`, `image`, `tech`, `role`, `outcome`, `description`, and `links`
+3. Put the screenshot in `public/projects/`
+4. Use `'#'` for a code or demo link only when it is not ready or private
+
+Example:
+
+```js
+{
+  title: 'New Project Name',
+  period: '2026',
+  image: {
+    src: '/projects/new-project-name.png',
+    alt: 'New Project Name screenshot',
+  },
+  tech: ['React.js', 'Node.js', 'MongoDB'],
+  role: 'Full-stack development',
+  outcome: 'Short result or business value.',
+  description: [
+    'First important feature or responsibility.',
+    'Second important feature or result.',
+  ],
+  links: {
+    github: 'https://github.com/NazirHussain1/project-repo',
+    live: 'https://project-demo.vercel.app/',
+  },
+}
+```
+
+## Contact Checks
+
+- Email form uses EmailJS credentials from `.env`
+- Direct email links open a prefilled `mailto:` draft
+- WhatsApp links open a chat with a prepared message
+- WhatsApp cannot be auto-sent from the website; the visitor must press send in WhatsApp
 
 ## Repository Standards
 

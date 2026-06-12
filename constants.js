@@ -49,6 +49,8 @@ export const PROJECTS = [
       alt: 'Faisal Fareed Woods business website screenshot',
     },
     tech: ['React.js', 'Vite', 'Tailwind CSS', 'Responsive Design', 'Vercel'],
+    role: 'Frontend development, responsive UI, deployment',
+    outcome: 'Live business website with clear service presentation and direct contact paths.',
     description: [
       'Built a responsive business website for a UAE wooden pallets supplier with service-focused content and clear contact paths.',
       'Optimized the frontend for fast loading, mobile usability, search visibility, and Vercel deployment.',
@@ -76,6 +78,8 @@ export const PROJECTS = [
       'Stripe',
       'Tailwind CSS',
     ],
+    role: 'Full-stack development, database schema, API integration',
+    outcome: 'Production-style commerce workflow covering authentication, products, cart, orders, and payments.',
     description: [
       'Built a scalable full-stack e-commerce platform using the PERN stack: PostgreSQL, Express, React, and Node.',
       'Designed the relational database schema in PostgreSQL and integrated it using Prisma ORM.',
@@ -96,6 +100,8 @@ export const PROJECTS = [
       alt: 'Law Surface project screenshot',
     },
     tech: ['MongoDB', 'Express.js', 'React.js', 'Node.js'],
+    role: 'Full-stack development, authentication flow, appointment workflow',
+    outcome: 'Legal appointment product concept with verified registration and advocate-client matching.',
     description: [
       'Built a web platform connecting clients with advocates through OTP-verified registration and appointment management.',
       'Designed the product as a full-stack application with a focus on scalability and security.',
@@ -113,6 +119,8 @@ export const PROJECTS = [
       alt: 'Skill Match job matching platform screenshot',
     },
     tech: ['React.js', 'Tailwind CSS', 'Node.js', 'Express.js', 'MongoDB'],
+    role: 'Full-stack development, role-based dashboard UI',
+    outcome: 'Job matching workflow connecting candidates and employers through profile and skill data.',
     description: [
       'Developed a full-stack platform to connect job seekers with employers based on skills.',
       'Implemented role-based dashboards and profile management.',

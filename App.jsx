@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from './components/Navbar.jsx';
 import Hero from './components/Hero.jsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
+import FloatingWhatsApp from './components/FloatingWhatsApp.jsx';
 import { NAME } from './constants.js';
 
 const LazyAbout = lazy(() => import('./components/About.jsx'));
@@ -169,6 +170,7 @@ const App = () => {
         <DeferredSection sectionId="footer" rootMargin="250px 0px" minHeightClass="min-h-[12rem]">
           <LazyFooter />
         </DeferredSection>
+        <FloatingWhatsApp />
       </PageContainer>
     );
   };
@@ -186,6 +188,7 @@ const App = () => {
   const NotFound = () => (
     <PageContainer>
       <Navbar darkMode={darkMode} toggleTheme={toggleTheme} />
+      <FloatingWhatsApp />
       <main className="min-h-screen bg-light dark:bg-dark px-4 pt-32 text-slate-900 dark:text-white">
         <section className="mx-auto flex max-w-3xl flex-col items-center justify-center py-24 text-center">
           <p className="mb-4 text-sm font-bold uppercase tracking-[0.28em] text-primary">404</p>
