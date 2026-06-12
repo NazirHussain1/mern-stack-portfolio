@@ -38,10 +38,16 @@ export const EXPERIENCES = [
   },
 ];
 
+// Add a new project by copying one object below and updating title, image, tech, description, and links.
+// Put project screenshots in `public/projects`, then reference them as `/projects/file-name.png`.
 export const PROJECTS = [
   {
     title: 'Blogging Platform',
     period: '2025',
+    image: {
+      src: '/projects/blogging-platform.svg',
+      alt: 'Blogging Platform project screenshot',
+    },
     tech: ['React.js', 'Node.js', 'Express', 'MongoDB', 'Pagination', 'Filtering'],
     description: [
       'Developed a full-stack blogging platform featuring dynamic pagination and advanced filtering capabilities.',
@@ -55,6 +61,10 @@ export const PROJECTS = [
   {
     title: 'Aureva - E-Commerce Platform',
     period: '2026',
+    image: {
+      src: '/projects/aureva-ecommerce.svg',
+      alt: 'Aureva e-commerce platform screenshot',
+    },
     tech: [
       'React.js',
       'Node.js',
@@ -81,6 +91,10 @@ export const PROJECTS = [
   {
     title: 'Law Surface',
     period: 'Sep 2025 - Nov 2025',
+    image: {
+      src: '/projects/law-surface.svg',
+      alt: 'Law Surface project screenshot',
+    },
     tech: ['MongoDB', 'Express.js', 'React.js', 'Node.js'],
     description: [
       'Built a web platform connecting clients with advocates through OTP-verified registration and appointment management.',
@@ -94,6 +108,10 @@ export const PROJECTS = [
   {
     title: 'Skill Match - Job Matching Platform',
     period: 'Nov 2025 - Dec 2025',
+    image: {
+      src: '/projects/skill-match.svg',
+      alt: 'Skill Match job matching platform screenshot',
+    },
     tech: ['React.js', 'Tailwind CSS', 'Node.js', 'Express.js', 'MongoDB'],
     description: [
       'Developed a full-stack platform to connect job seekers with employers based on skills.',

@@ -54,9 +54,21 @@ const Projects = () => {
                 className="group relative glass rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 flex flex-col h-full"
               >
                 <div className={`relative overflow-hidden aspect-video bg-gradient-to-br ${visual.shell}`}>
-                  <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.8),_transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(15,23,42,0.5),_transparent_40%)]" />
+                  {project.image?.src && (
+                    <img
+                      src={project.image.src}
+                      alt={project.image.alt || `${project.title} screenshot`}
+                      loading="lazy"
+                      className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                      onError={(event) => {
+                        event.currentTarget.style.display = 'none';
+                      }}
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-slate-950/45" />
+                  <div className="absolute inset-0 opacity-25 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.8),_transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(15,23,42,0.5),_transparent_40%)]" />
                   <div
-                    className={`absolute inset-4 rounded-2xl border border-white/20 bg-gradient-to-br ${visual.panel} backdrop-blur-md p-4 shadow-2xl sm:inset-6 sm:rounded-[2rem] sm:p-6`}
+                    className={`absolute inset-4 rounded-2xl border border-white/20 bg-gradient-to-br ${visual.panel} backdrop-blur-sm p-4 shadow-2xl sm:inset-6 sm:rounded-[2rem] sm:p-6`}
                   >
                     <div className="flex h-full flex-col justify-between">
                       <div className="flex items-center justify-between gap-3">

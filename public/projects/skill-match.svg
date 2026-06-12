@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Skill Match screenshot placeholder</title>
+  <desc id="desc">A browser-style preview for the Skill Match project.</desc>
+  <rect width="1600" height="900" fill="#7c2d12"/>
+  <rect x="110" y="90" width="1380" height="720" rx="34" fill="#fff7ed"/>
+  <rect x="110" y="90" width="1380" height="82" rx="34" fill="#fed7aa"/>
+  <circle cx="166" cy="131" r="14" fill="#ef4444"/>
+  <circle cx="210" cy="131" r="14" fill="#f59e0b"/>
+  <circle cx="254" cy="131" r="14" fill="#22c55e"/>
+  <rect x="210" y="238" width="520" height="96" rx="24" fill="#ea580c"/>
+  <rect x="210" y="390" width="340" height="60" rx="20" fill="#fdba74"/>
+  <rect x="210" y="482" width="420" height="24" rx="12" fill="#64748b"/>
+  <rect x="210" y="534" width="500" height="24" rx="12" fill="#94a3b8"/>
+  <rect x="860" y="230" width="360" height="460" rx="28" fill="#ffedd5"/>
+  <circle cx="1040" cy="350" r="72" fill="#fb923c"/>
+  <rect x="930" y="480" width="220" height="28" rx="14" fill="#9a3412"/>
+  <rect x="930" y="542" width="220" height="20" rx="10" fill="#c2410c"/>
+  <text x="210" y="704" fill="#0f172a" font-family="Arial, sans-serif" font-size="68" font-weight="700">Skill Match</text>
+</svg>
