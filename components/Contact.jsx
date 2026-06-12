@@ -6,8 +6,12 @@ import { EMAIL, PHONE, LOCATION } from '../constants.js';
 import WhatsAppIcon from './WhatsAppIcon.jsx';
 
 const Contact = () => {
-  const whatsappUrl = `https://wa.me/${PHONE.replace(/\+/g, '')}`;
-  const emailUrl = `mailto:${EMAIL}`;
+  const defaultContactMessage = `Hi Nazir, I visited your portfolio and would like to discuss a project or opportunity.`;
+  const whatsappUrl = `https://wa.me/${PHONE.replace(/\D/g, '')}?text=${encodeURIComponent(defaultContactMessage)}`;
+  const emailUrl = `mailto:${EMAIL}?subject=${encodeURIComponent('Portfolio Contact Inquiry')}&body=${encodeURIComponent(
+    defaultContactMessage
+  )}`;
+  const phoneUrl = `tel:${PHONE.replace(/[^\d+]/g, '')}`;
   const locationUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(LOCATION)}`;
   const [formData, setFormData] = useState({
     name: '',
@@ -169,8 +173,8 @@ const Contact = () => {
           <div className="lg:col-span-5">
             <div className="space-y-6">
               {[
-                { icon: <Mail />, title: 'Email', value: EMAIL, href: `mailto:${EMAIL}` },
-                { icon: <Phone />, title: 'Phone', value: PHONE, href: `tel:${PHONE.replace(/\D/g, '')}` },
+                { icon: <Mail />, title: 'Email', value: EMAIL, href: emailUrl },
+                { icon: <Phone />, title: 'Phone', value: PHONE, href: phoneUrl },
                 { icon: <WhatsAppIcon size={24} />, title: 'WhatsApp', value: 'Chat on WhatsApp', href: whatsappUrl },
                 { icon: <MapPin />, title: 'Location', value: LOCATION, href: locationUrl },
               ].map((item, idx) => (

@@ -42,20 +42,20 @@ export const EXPERIENCES = [
 // Put project screenshots in `public/projects`, then reference them as `/projects/file-name.png`.
 export const PROJECTS = [
   {
-    title: 'Blogging Platform',
-    period: '2025',
+    title: 'Faisal Fareed Woods',
+    period: '2026',
     image: {
-      src: '/projects/blogging-platform.svg',
-      alt: 'Blogging Platform project screenshot',
+      src: '/projects/faisal-fareed-woods.svg',
+      alt: 'Faisal Fareed Woods business website screenshot',
     },
-    tech: ['React.js', 'Node.js', 'Express', 'MongoDB', 'Pagination', 'Filtering'],
+    tech: ['React.js', 'Vite', 'Tailwind CSS', 'Responsive Design', 'Vercel'],
     description: [
-      'Developed a full-stack blogging platform featuring dynamic pagination and advanced filtering capabilities.',
-      'Optimized data flow between the React frontend and Node/Express backend for a seamless user experience.',
+      'Built a responsive business website for a UAE wooden pallets supplier with service-focused content and clear contact paths.',
+      'Optimized the frontend for fast loading, mobile usability, search visibility, and Vercel deployment.',
     ],
     links: {
-      github: 'https://github.com/NazirHussain1',
-      live: 'https://blog-api-pagination-filtering.vercel.app/',
+      github: '#',
+      live: 'https://fiasal-fareed-woods.vercel.app/',
     },
   },
   {
@@ -101,7 +101,7 @@ export const PROJECTS = [
       'Designed the product as a full-stack application with a focus on scalability and security.',
     ],
     links: {
-      github: 'https://github.com/NazirHussain1',
+      github: '#',
       live: '#',
     },
   },
@@ -118,7 +118,7 @@ export const PROJECTS = [
       'Implemented role-based dashboards and profile management.',
     ],
     links: {
-      github: 'https://github.com/NazirHussain1',
+      github: '#',
       live: '#',
     },
   },
@@ -141,7 +141,7 @@ export const PROJECT_RESULTS = [
     metric: '4',
     label: 'Full-stack case studies',
     detail:
-      'Blogging, ecommerce, legal appointment, and job-matching projects covering frontend, backend, and deployment.',
+      'Business websites, ecommerce, legal appointment, and job-matching projects covering frontend, backend, and deployment.',
   },
   {
     metric: '100%',
@@ -159,10 +159,10 @@ export const GITHUB_HIGHLIGHTS = [
     href: 'https://github.com/NazirHussain1/aureva-ecommerce-platform',
   },
   {
-    title: 'Blog API Pagination & Filtering',
-    summary: 'Blog platform focused on backend data handling, pagination, filtering, and frontend API consumption.',
-    stack: ['React', 'Node.js', 'Express', 'MongoDB'],
-    href: 'https://blog-api-pagination-filtering.vercel.app/',
+    title: 'Faisal Fareed Woods',
+    summary: 'Responsive supplier website with focused content, contact paths, and Vercel deployment.',
+    stack: ['React', 'Vite', 'Tailwind CSS', 'Vercel'],
+    href: 'https://fiasal-fareed-woods.vercel.app/',
   },
   {
     title: 'Full Stack Portfolio',
